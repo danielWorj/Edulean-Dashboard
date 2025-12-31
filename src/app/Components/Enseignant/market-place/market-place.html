@@ -1,0 +1,196 @@
+
+ <main class="main-content">
+        
+        <button class="mobile-menu-btn" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i> Menu
+        </button>
+        
+        <div id="dashboard-section">
+            <div class="header">
+                <h1 class="page-title">Gestion Market-Place</h1>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div><div class="stat-title">Total Ressources</div><div class="stat-value" id="dash-total-enfants">03</div></div>
+                        <div class="stat-icon blue"><i class="fas fa-child"></i></div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div><div class="stat-title">Paiements</div><div class="stat-value" id="dash-total-paiements">12</div></div>
+                        <div class="stat-icon green"><i class="fas fa-wallet"></i></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="offres-section" >
+            <div class="header">
+                <button class="btn-primary-custom" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="toggleToCreation()">
+                    <i class="fas fa-plus"></i> Nouvelle Ressource
+                </button>
+            </div>
+            <div class="data-table">
+                <div class="row">
+                      @if (listRessource().length !== 0) {
+                            @for (r of listRessource(); track r.id) {
+                                <div class="resource-card col-6">
+                                    <div class="resource-header">
+                                        <span class="resource-type-badge">{{r.typeResource.nom}}</span>
+                                        <div class="resource-icon">
+                                            <i class="fas fa-graduation-cap"></i>
+                                        </div>
+                                        <h3 class="resource-title">{{r.nom}}</h3>
+                                    </div>
+                                    <div class="resource-body">
+                                        <!-- <div class="resource-meta">
+                                            <div class="meta-item">
+                                                <i class="fas fa-book"></i>
+                                                <span>Mathématiques</span>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="fas fa-file"></i>
+                                                <span>250 pages</span>
+                                            </div>
+                                            <div class="meta-item">
+                                                <i class="fas fa-download"></i>
+                                                <span>850 téléchargements</span>
+                                            </div>
+                                        </div> -->
+                                        <p class="resource-description">
+                                           {{r.description}}
+                                        </p>
+                                       
+                                        <!-- <div class="resource-rating">
+                                            <div class="stars">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </div>
+                                            <span class="rating-text">4.9/5 (156 avis)</span>
+                                        </div> -->
+                                        <div class="price-section">
+                                            <span class="price">{{r.prix}} XAF</span>
+                                        </div>
+                                        <button class="btn btn-buy">
+                                            <i class="fas fa-shopping-cart me-2"></i>Acheter maintenant
+                                        </button>
+                                        <button class="btn btn-preview">
+                                            <i class="fas fa-eye me-2"></i>Aperçu gratuit
+                                        </button>
+                                    </div>
+                                </div>
+                            }
+                        } @else {
+                            <div class="d-flex justify-content-center p-4">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Chargement...</span>
+                                </div>
+                            </div>
+                        }
+                </div>
+            </div>
+        </div>
+
+
+      
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        @if (isCreation()) {
+                            Créer une nouvelle Ressource
+                        }
+                        @if (!isCreation()) {
+                            Editer une Ressource
+                        }
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="toggleToCreation()"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="offreForm" [formGroup]="ressourceForm" (ngSubmit)="createMarketPlace()">
+                        <div class="row g-3">
+                             <div class="col-12">
+                                <select class="form-select" required formControlName="typeResource">
+                                    <label class="form-label">Selectionner le Type de Ressource *</label>
+                                    <option value="">Selectionner</option>
+                                    @for (r of listTypeRessource(); track $index) {
+                                        <option value="{{r.id}}">{{r.nom}}</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Nom *</label>
+                                <input type="text" class="form-control" required formControlName="nom" placeholder="EX : Mathematique PD">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Prix (XAF) *</label>
+                                <input type="text" class="form-control" required formControlName="prix" placeholder="EX : 250000">
+                            </div>
+                   
+                             <div class="col-md-12">
+                                <label for="description" class="form-label">Description</label>
+                                <textarea class="form-control" id="description" rows="4" placeholder="Entrez votre texte ici..." formControlName="description"></textarea>
+                            </div>
+
+                             <div class="col-12">
+                                <label class="form-label">Photo de Profil  *</label>
+                                <div class="component-section compact">
+                                    
+                                    <!-- Zone d'UPLOAD -->
+                                    @if(!fetchPhotoState()){
+                                        <div class="upload-container" id="photoUploadArea" onclick="document.getElementById('photoInput').click()">
+                                            <div class="upload-icon">
+                                                <i class="fas fa-camera"></i>
+                                            </div>
+                                            <div class="upload-text">Cliquez pour télécharger votre Ressource</div>
+                                            <div class="upload-subtext">ou glissez-déposez votre fichier ici</div>
+                                            <button class="btn-upload" type="button">
+                                                <i class="fas fa-upload me-2"></i>Sélectionner un fichier
+                                            </button>
+                                            <div class="upload-restrictions">
+                                                <i class="fas fa-info-circle me-1"></i>
+                                                Formats acceptés: JPG, PNG, JPEG , PDF , DOCX• Taille max: 5 MB
+                                            </div>
+                                            <input type="file" id="photoInput" class="file-input"  (change)="selectPhotoUploaded($event)">
+                                        </div>
+                                    }
+
+                                    @if(fetchPhotoState()){ 
+                                         <div class="preview-info">
+                                            <div>
+                                                <div class="file-name">{{photoFileName()}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="preview-actions">
+                                            <button class="btn-remove" >
+                                                <i class="fas fa-trash me-2"></i>Supprimer ce document
+                                            </button>
+                                        </div>
+                                    }
+
+                                    
+                                </div>
+                            </div>
+
+                             <div class="col-12">
+                                <button type="submit" class="btn-primary-custom w-100" data-bs-dismiss="modal">
+                                    <i class="fas fa-edit me-2"></i>Enregistrer
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+</div>
+
+</main>
