@@ -7,6 +7,7 @@ import { edulearnDashboard } from '../../Constant/EndPoints';
 import { SessionRepetition } from '../../Model/Repetition/SessionRepetition';
 import { MatiereRepetition } from '../../Model/Repetition/MatiereRepetition';
 import { HoraireRepetition } from '../../Model/Repetition/HoraireRepetition';
+import { Matiere } from '../../Model/Academie/Matiere';
 
 @Injectable({
   providedIn: 'root',
@@ -67,6 +68,9 @@ export class RepetitionService {
     return this.http.post<ResponseServer>(edulearnDashboard.SessionRepetition.MatiereRepetition.create, request);
   }
 
+  findAllMatiereByRepetition(id :number):Observable<Matiere[]> {
+    return this.http.get<Matiere[]>(edulearnDashboard.SessionRepetition.MatiereRepetition.allmatierebyrepetition+id);
+  }
    //Horaire Repetion 
 
   findAllHoraireRepetition(id:number):Observable<HoraireRepetition[]> {

@@ -51,6 +51,7 @@ export const edulearnDashboard = {
         MatiereRepetition : {
             allByRepetition : `${repetitionapi}/matiere-repetition/all/byrepetition/`,
             create : `${repetitionapi}/matiere-repetition/create`,
+            allmatierebyrepetition : `${repetitionapi}/matiere-repetition/allmatiere/byreptition/`,
         }, 
         HoraireRepetition :{
              allByRepetition : `${repetitionapi}/horaire-repetition/all/byrepetition/`,

@@ -36,46 +36,82 @@
             <div class="data-table">
                 <!-- <button class="btn-primary" (click)="save()">Tester Toast</button> -->
                 <div class="table-responsive">
-                    <table class="table" id="enfantsTable">
+                    <table class="tableau-compo-table table">
                         <thead>
                             <tr>
-                                <th>N°</th>
-                                <th>Eleve</th>
+                                <th>Élève</th>
                                 <th>Sujet</th>
                                 <th>Composition</th>
-                                <th>Visibilite</th>
+                                <th>Visibilité</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody id="enfantsTableBody">
+                        <tbody>
                             @for (c of listCompositionByEnseignant(); track $index) {
-                                <tr>
-                                    <td>{{$index+1}}</td>
-                                    <td>{{c.repetition.offreRepetition.eleve.nomComplet}}</td>
-                                    <td>{{c.description}}</td>
-                                    <td> 
-                                        @if (c.archived) {
-                                            <span class="badge bg-success">Compose</span>
+                            <tr>
+                                <td data-label="Élève">
+                                    <div class="tableau-compo-eleve">
+                                        <div class="tableau-compo-eleve-info">
+                                            <h5>{{c.repetition.offreRepetition.eleve.nomComplet}}</h5>
+                                            <p>{{c.repetition.offreRepetition.eleve.niveau.intitule}} : {{c.repetition.offreRepetition.eleve.filiere.intitule}}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-label="Sujet">
+                                    <div class="tableau-compo-sujet">
+                                        <div class="tableau-compo-matiere">
+                                            {{c.matiere.intitule}}
+                                        </div>
+                                        <div class="tableau-compo-duree">
+                                            <i class="fas fa-clock"></i>
+                                            <span>{{c.duree}} minutes</span>
+                                        </div>
+                                        <p class="tableau-compo-description">
+                                            {{c.description}}
+                                        </p>
+                                    </div>
+                                </td>
+                                <td data-label="Composition">
+                                      @if (c.archived) {
+                                             <span class="tableau-compo-badge tableau-compo-badge-termine">
+                                                <i class="fas fa-check-circle"></i>
+                                                Terminé
+                                            </span>
                                         }
                                         @if (!c.archived) {
-                                            <span class="badge bg-danger">En attente</span>
+                                            <span class="tableau-compo-badge tableau-compo-badge-attente">
+                                                <i class="fas fa-hourglass-half"></i>
+                                                Attente
+                                            </span>
                                         }
-                                    </td>
-                                    <td>
-                                        @if (c.active) {
-                                            <span class="badge bg-success">Visible</span>
-                                        }
-                                        @if (!c.active) {
-                                            <span class="badge bg-danger">Masqué</span>
-                                        }
-                                    </td>
-                                    <td>
-                                        <i class="fas fa-edit text-info me-2" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"  (click)="selectComposition(c)"></i>
-                                        <i class="fas fa-trash text-danger me-2"></i>
-                                    </td>
                                     
-                                </tr>
-                            }
+                                </td>
+                                <td data-label="Visibilité">
+                                     <span class="tableau-compo-badge tableau-compo-badge-visible">
+                                        <i class="fas fa-eye"></i>
+                                        Visible
+                                    </span>
+                                </td>
+                                <td data-label="Actions">
+                                    <div class="tableau-compo-actions">
+                                        
+                                        <button class="tableau-compo-btn tableau-compo-btn-edit" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="selectComposition(c)" title="Modifier">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="tableau-compo-btn tableau-compo-btn-delete" title="Supprimer">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            }@empty {
+                                <div class="tableau-compo-empty">
+                                    <i class="fas fa-inbox"></i>
+                                    <h3>Aucune composition disponible</h3>
+                                    <p>Commencez par créer une nouvelle composition</p>
+                                </div>
+                            }                        
+
                         </tbody>
                     </table>
                       
@@ -155,17 +191,31 @@
                                 </div>
                                 </div>
 
-                                <div class="comp-form-group">
-                                <label class="comp-label required">Session de Répétition</label>
-                                <select class="comp-select" formControlName="repetition">
-                                    <option value="">-- Sélectionner --</option>
-                                     @for (t of listRepetitionByEnseignant(); track $index) {
-                                        <option value="{{t.id}}">
-                                            {{ t.offreRepetition.eleve.nomComplet }} - {{ t.offreRepetition.eleve.niveau.intitule }} {{ t.offreRepetition.eleve.filiere.intitule }}
-                                        </option>
-                                    }
-                                </select>
+                                <div class="comp-form-row">
+                                    <div class="comp-form-group">
+                                        <label class="comp-label required">Session de Répétition</label>
+                                        <select class="comp-select" formControlName="repetition" (change)="selectSessionRepetition($event)">
+                                            <option value="">-- Sélectionner --</option>
+                                            @for (t of listRepetitionByEnseignant(); track $index) {
+                                                <option value="{{t.id}}">
+                                                    {{ t.offreRepetition.eleve.nomComplet }} - {{ t.offreRepetition.eleve.niveau.intitule }} {{ t.offreRepetition.eleve.filiere.intitule }}
+                                                </option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="comp-form-group">
+                                        <label class="comp-label required">Matiere</label>
+                                        <select class="comp-select" formControlName="matiere">
+                                            <option value="">-- Sélectionner --</option>
+                                            @for (m of listMatiereByRepetition(); track $index) {
+                                                <option value="{{m.id}}">
+                                                    {{ m.intitule }}
+                                                </option>
+                                            }
+                                        </select>
+                                    </div>
                                 </div>
+                               
 
 
                                 <button class="comp-btn comp-btn-primary" type="submit" >
@@ -278,12 +328,12 @@
                                     </p>
                                     <div class="answers-list">
                                         @for (r of q.reponsesPossibles; track $index) {
-                                            <div class="answer-item" [class.correct]="r.correcte" (click)="selectReponsePossible(r)">
+                                            <div class="answer-item" [class.correct]="r.correcte" (click)="validateReponse(r)">
                                                 <input 
                                                 type="checkbox" 
                                                 class="answer-checkbox" 
                                                 [checked]="r.correcte" 
-                                                disabled>
+                                                disabled >
                                                 <span class="answer-text">{{ r.reponse }}</span>
                                                 @if (r.correcte) {
                                                     <i class="fas fa-check-circle" style="color: #28a745; margin-left: auto;"></i>

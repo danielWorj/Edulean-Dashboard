@@ -1983,6 +1983,303 @@
             color: #856404;
             font-size: 0.9rem;
         }
+        
+        .tableau-compo-container {
+            padding: 2rem;
+            background: #f5f7fa;
+            min-height: 100vh;
+        }
+
+        .tableau-compo-header {
+            background: linear-gradient(135deg, var(--tableau-compo-primary), var(--tableau-compo-secondary));
+            color: white;
+            padding: 2rem;
+            border-radius: 12px 12px 0 0;
+            margin-bottom: 0;
+        }
+
+        .tableau-compo-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin: 0;
+        }
+
+        .tableau-compo-wrapper {
+            background: white;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .tableau-compo-table {
+            width: 100%;
+            margin: 0;
+        }
+
+        .tableau-compo-table thead {
+            background: linear-gradient(135deg, var(--tableau-compo-light), #fff);
+        }
+
+        .tableau-compo-table thead th {
+            padding: 1.2rem 1.5rem;
+            font-weight: 700;
+            color: var(--tableau-compo-primary);
+            border-bottom: 3px solid var(--tableau-compo-gold);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tableau-compo-table tbody tr {
+            border-bottom: 1px solid var(--tableau-compo-light);
+            transition: all 0.3s;
+        }
+
+        .tableau-compo-table tbody tr:hover {
+            background: linear-gradient(90deg, var(--tableau-compo-light) 0%, #fff 100%);
+            transform: scale(1.01);
+            box-shadow: 0 3px 10px rgba(139, 21, 56, 0.1);
+        }
+
+        .tableau-compo-table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .tableau-compo-table tbody td {
+            padding: 1.5rem;
+            vertical-align: middle;
+        }
+
+        .tableau-compo-eleve {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .tableau-compo-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--tableau-compo-primary), var(--tableau-compo-secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .tableau-compo-eleve-info h5 {
+            margin: 0;
+            font-weight: 700;
+            color: var(--tableau-compo-dark);
+            font-size: 1rem;
+        }
+
+        .tableau-compo-eleve-info p {
+            margin: 0.2rem 0 0 0;
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .tableau-compo-sujet {
+            max-width: 400px;
+        }
+
+        .tableau-compo-matiere {
+            font-weight: 700;
+            color: var(--tableau-compo-primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tableau-compo-matiere i {
+            color: var(--tableau-compo-gold);
+        }
+
+        .tableau-compo-duree {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tableau-compo-duree i {
+            color: var(--tableau-compo-gold);
+        }
+
+        .tableau-compo-description {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .tableau-compo-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tableau-compo-badge-termine {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+
+        .tableau-compo-badge-attente {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            color: #856404;
+            border: 2px solid #ffc107;
+        }
+
+        .tableau-compo-badge-visible {
+            background: linear-gradient(135deg, #d1ecf1, #bee5eb);
+            color: #0c5460;
+            border: 2px solid #17a2b8;
+        }
+
+        .tableau-compo-badge-masque {
+            background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+            color: #721c24;
+            border: 2px solid #dc3545;
+        }
+
+        .tableau-compo-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .tableau-compo-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .tableau-compo-btn-view {
+            background: linear-gradient(135deg, #17a2b8, #138496);
+            color: white;
+        }
+
+        .tableau-compo-btn-view:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(23, 162, 184, 0.4);
+        }
+
+        .tableau-compo-btn-edit {
+            background: linear-gradient(135deg, var(--tableau-compo-gold), #FFD700);
+            color: var(--tableau-compo-dark);
+        }
+
+        .tableau-compo-btn-edit:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .tableau-compo-btn-delete {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+        }
+
+        .tableau-compo-btn-delete:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4);
+        }
+
+        .tableau-compo-empty {
+            text-align: center;
+            padding: 3rem;
+            color: #999;
+        }
+
+        .tableau-compo-empty i {
+            font-size: 4rem;
+            color: var(--tableau-compo-light);
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .tableau-compo-table {
+                font-size: 0.9rem;
+            }
+
+            .tableau-compo-table tbody td {
+                padding: 1rem;
+            }
+
+            .tableau-compo-sujet {
+                max-width: 250px;
+            }
+
+            .tableau-compo-avatar {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .tableau-compo-container {
+                padding: 1rem;
+            }
+
+            .tableau-compo-table thead {
+                display: none;
+            }
+
+            .tableau-compo-table tbody tr {
+                display: block;
+                margin-bottom: 1rem;
+                border: 2px solid var(--tableau-compo-light);
+                border-radius: 12px;
+                padding: 1rem;
+            }
+
+            .tableau-compo-table tbody td {
+                display: block;
+                padding: 0.5rem 0;
+                border: none;
+            }
+
+            .tableau-compo-table tbody td::before {
+                content: attr(data-label);
+                font-weight: 700;
+                color: var(--tableau-compo-primary);
+                display: block;
+                margin-bottom: 0.5rem;
+            }
+
+            .tableau-compo-sujet {
+                max-width: 100%;
+            }
+
+            .tableau-compo-actions {
+                justify-content: center;
+            }
+        }
         /* Toast design */
         .toast-container {
         position: fixed;

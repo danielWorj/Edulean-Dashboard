@@ -76,11 +76,11 @@ export class EvaluationService {
   }
 
   validateReponsePossible(id : number ): Observable<ResponseServer>{
-    return this.httpClient.delete<ResponseServer>(edulearnDashboard.Evaluation.ReponsePossible.validate + id);
+    return this.httpClient.get<ResponseServer>(edulearnDashboard.Evaluation.ReponsePossible.validate + id);
   }
 
   deleteReponsePossible(id : number ): Observable<ResponseServer>{
-    return this.httpClient.delete<ResponseServer>(edulearnDashboard.Evaluation.ReponsePossible.delete + id);
+    return this.httpClient.get<ResponseServer>(edulearnDashboard.Evaluation.ReponsePossible.delete + id);
   }
 
 
@@ -99,7 +99,7 @@ export class EvaluationService {
   }
 
   deleteTentativeEvaluation(id : number ): Observable<ResponseServer>{
-    return this.httpClient.delete<ResponseServer>(edulearnDashboard.Evaluation.TentativeEvaluation.delete + id);
+    return this.httpClient.get<ResponseServer>(edulearnDashboard.Evaluation.TentativeEvaluation.delete + id);
   }
 
   //Reponse Eleve API

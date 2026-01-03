@@ -12,6 +12,7 @@ import { TypeEvaluation } from '../../../Core/Model/Evaluation/TypeEvaluation';
 import { ResponseServer } from '../../../Core/Model/Server/ResponseServer';
 import { ToastComponent } from '../../../Composants/Comp/toast/toast';
 import { ToastService } from '../../../Composants/Service/Toast/toast-service.ts';
+import { Matiere } from '../../../Core/Model/Academie/Matiere';
 
 @Component({
   selector: 'app-evaluation',
@@ -45,6 +46,7 @@ export class Evaluation {
       archived : new FormControl(''),
       typeEvaluation : new FormControl(''),
       repetition : new FormControl(''),
+      matiere : new FormControl(''),
     });
 
     this.evaluationFb = this.fb.group({
@@ -105,6 +107,18 @@ export class Evaluation {
     });
   }
 
+  listMatiereByRepetition = signal<Matiere[]>([]);
+  getAllMatiereByRepetition(id :number){
+    this.repetitionService.findAllMatiereByRepetition(id).subscribe({
+      next : (data : Matiere[])=>{
+        this.listMatiereByRepetition.set(data);
+        //console.log("Matiere by repetition", data);
+      },
+      error: ()=>{
+        console.log('Erreur fetch matiere by repetition : failed'); 
+      }
+    });
+  }
   
   listRepetitionByEnseignant = signal<SessionRepetition[]>([]);
 
@@ -119,7 +133,11 @@ export class Evaluation {
       }
     });
   }
-  //Composition CRUD
+  //Composition CRUD  
+  selectSessionRepetition(event:any){
+    let id = event.target.value;
+    this.getAllMatiereByRepetition(id);
+  }
 
   listCompositionByEnseignant = signal<Composition[]>([]);
   
@@ -396,10 +414,13 @@ export class Evaluation {
   }
 
   validateReponse(reponse : ReponsePossible){
+    this.selectReponsePossible(reponse);
     this.evaluationService.validateReponsePossible(reponse.id).subscribe({
       next : (data : ResponseServer)=>{
        if(data.status){
          console.log(data.message);
+         this.getAllReponsePossibleByQuestion(this.idQuestion); 
+         this.findAllconstructQuestionReponsePossibleForComposition(this.idComposition);
        }else{
          console.log(data.message);
        }
