@@ -60,8 +60,12 @@ export const routes: Routes = [
          path: 'enseignant-marketplace',
          loadComponent: () => import('./Components/Enseignant/market-place/market-place').then(m => m.MarketPlace)
     },
-     {
+    {
          path: 'enseignant-enfant',
          loadComponent: () => import('./Components/Enseignant/enfant/enfant').then(e => e.Enfant)
+    },
+    {
+         path: 'enseignant-evaluation',
+         loadComponent: () => import('./Components/Enseignant/evaluation/evaluation').then(e => e.Evaluation)
     },
 ];

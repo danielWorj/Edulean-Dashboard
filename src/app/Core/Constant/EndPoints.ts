@@ -1,8 +1,11 @@
+import { Type } from "@angular/core";
+
 const api = "http://localhost:8080/edulearn/api"
 const userapi = `${api}/user`; 
 const repetitionapi = `${api}/repetition`; 
 const marketplaceapi = `${api}/marketplace`; 
 const generalapi = `${api}/general`; 
+const evaluationapi = `${api}/evaluation`; 
 
 
 
@@ -107,6 +110,51 @@ export const edulearnDashboard = {
             delete : `${generalapi}/matiere/delete/`,
         },
 
+
+    }, 
+
+    Evaluation : {
+        Composition : {
+            allbyenseignant : `${evaluationapi}/composition/all/byenseignant/`,
+            allbymatiere : `${evaluationapi}/composition/all/bymatiere/`,
+            create : `${evaluationapi}/composition/create`,
+            update : `${evaluationapi}/composition/update`,
+            delete : `${evaluationapi}/composition/delete/`,
+        }, 
+
+        Question : {
+            allbycomposition : `${evaluationapi}/question/all/bycomposition/`,
+            create : `${evaluationapi}/question/create`,
+            update : `${evaluationapi}/question/update`,
+            delete : `${evaluationapi}/question/delete/`,
+        }, 
+
+        ReponsePossible : {
+            allByQuestion : `${evaluationapi}/reponse-possible/all/byquestion/`,
+            create : `${evaluationapi}/reponse-possible/create`,
+            update : `${evaluationapi}/reponse-possible/update`,
+            validate : `${evaluationapi}/reponse-possible/validate/`,
+            delete : `${evaluationapi}/reponse-possible/delete/`,
+        } , 
+
+        TentativeEvaluation : {
+            allbyeleve : `${evaluationapi}/tentative-evaluation/all/byeleve/`,
+            create : `${evaluationapi}/tentative-evaluation/create`,
+            update : `${evaluationapi}/tentative-evaluation/update`,
+            delete : `${evaluationapi}/tentative-evaluation/delete/`,
+        }, 
+        ReponseEleve : {
+            allbytentative : `${evaluationapi}/reponse-eleve/all/bytentative/`,
+            create : `${evaluationapi}/reponse-eleve/create`,
+            update : `${evaluationapi}/reponse-eleve/update`,
+            delete : `${evaluationapi}/reponse-eleve/delete/`,
+        },
+        TypeEvaluation : {
+            all : `${evaluationapi}/type-evaluation/all`,
+            create : `${evaluationapi}/type-evaluation/create`,
+            delete : `${evaluationapi}/type-evaluation/delete/`,
+        }
+        
 
     }
 

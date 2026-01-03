@@ -13,7 +13,7 @@ import { Sidebar } from "./Layout/sidebar/sidebar";
 export class App {
   protected readonly title = signal('dashboard');
 
-  isConnected:boolean = false; 
+  isConnected:boolean = true; 
   
   
   roleParent : number = 0; 
