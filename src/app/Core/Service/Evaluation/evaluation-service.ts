@@ -102,18 +102,22 @@ export class EvaluationService {
     return this.httpClient.get<ResponseServer>(edulearnDashboard.Evaluation.TentativeEvaluation.delete + id);
   }
 
+  findNoteFinalForTentativeEvaluation(id : number ): Observable<number>{
+    return this.httpClient.get<number>(edulearnDashboard.Evaluation.TentativeEvaluation.noteFinal + id);
+  }
+
   //Reponse Eleve API
 
   getAllReponseEleveByTentativeEvaluation(id:number):Observable<ReponseEleve[]>{
     return this.httpClient.get<ReponseEleve[]>(edulearnDashboard.Evaluation.ReponseEleve.allbytentative + id);
   }
 
-  createReponseEleve(request : any ): Observable<number>{
-    return this.httpClient.post<number>(edulearnDashboard.Evaluation.ReponseEleve.create, request);
+  createReponseEleve(request : any ): Observable<ResponseServer>{
+    return this.httpClient.post<ResponseServer>(edulearnDashboard.Evaluation.ReponseEleve.create, request);
   }
 
-  updateReponseEleve(request : any ): Observable<number>{
-    return this.httpClient.post<number>(edulearnDashboard.Evaluation.ReponseEleve.update, request);
+  updateReponseEleve(request : any ): Observable<ResponseServer>{
+    return this.httpClient.post<ResponseServer>(edulearnDashboard.Evaluation.ReponseEleve.update, request);
   }
 
   deleteReponseEleve(id : number ): Observable<ResponseServer>{

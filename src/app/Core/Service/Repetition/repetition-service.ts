@@ -71,6 +71,10 @@ export class RepetitionService {
   findAllMatiereByRepetition(id :number):Observable<Matiere[]> {
     return this.http.get<Matiere[]>(edulearnDashboard.SessionRepetition.MatiereRepetition.allmatierebyrepetition+id);
   }
+
+  findAllMatiereByEleve(id :number):Observable<Matiere[]> {
+    return this.http.get<Matiere[]>(edulearnDashboard.SessionRepetition.MatiereRepetition.allmatierebyeleve+id);
+  }
    //Horaire Repetion 
 
   findAllHoraireRepetition(id:number):Observable<HoraireRepetition[]> {

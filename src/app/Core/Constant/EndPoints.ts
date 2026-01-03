@@ -52,7 +52,8 @@ export const edulearnDashboard = {
             allByRepetition : `${repetitionapi}/matiere-repetition/all/byrepetition/`,
             create : `${repetitionapi}/matiere-repetition/create`,
             allmatierebyrepetition : `${repetitionapi}/matiere-repetition/allmatiere/byreptition/`,
-        }, 
+            allmatierebyeleve : `${repetitionapi}/matiere-repetition/allmatiere/byeleve/`,
+        },  
         HoraireRepetition :{
              allByRepetition : `${repetitionapi}/horaire-repetition/all/byrepetition/`,
              create : `${repetitionapi}/horaire-repetition/create`,
@@ -143,6 +144,7 @@ export const edulearnDashboard = {
             create : `${evaluationapi}/tentative-evaluation/create`,
             update : `${evaluationapi}/tentative-evaluation/update`,
             delete : `${evaluationapi}/tentative-evaluation/delete/`,
+            noteFinal : `${evaluationapi}/tentative-evaluation/notefinale/bytentative/`,
         }, 
         ReponseEleve : {
             allbytentative : `${evaluationapi}/reponse-eleve/all/bytentative/`,

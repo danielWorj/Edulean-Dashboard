@@ -68,4 +68,11 @@ export const routes: Routes = [
          path: 'enseignant-evaluation',
          loadComponent: () => import('./Components/Enseignant/evaluation/evaluation').then(e => e.Evaluation)
     },
+
+    //ENFANT 
+     {
+         path: 'eleve-evaluation',
+         loadComponent: () => import('./Components/Eleve/evaluation/evaluation').then(e => e.Evaluation)
+    },
+
 ];
