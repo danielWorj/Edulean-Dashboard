@@ -74,5 +74,9 @@ export const routes: Routes = [
          path: 'eleve-evaluation',
          loadComponent: () => import('./Components/Eleve/evaluation/evaluation').then(e => e.Evaluation)
     },
+    {
+         path: 'eleve-assistantia',
+         loadComponent: () => import('./Components/Eleve/assistantia/assistantia').then(ia => ia.Assistantia)
+    }
 
 ];
