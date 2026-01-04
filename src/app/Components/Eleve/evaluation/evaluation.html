@@ -11,6 +11,17 @@
     <p class="eleve-compo-subtitle">Sélectionnez une matière pour voir vos évaluations</p>
   </div>
 
+  <p class="d-inline-flex gap-1">
+    <button (click)="getChart()" class="eleve-compo-btn-commencer" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      Voir les statistiques
+    </button>
+  </p>
+  <div class="collapse mb-3" id="collapseExample">
+    <div class="card card-body">
+      <canvas id="myChart"></canvas>
+    </div>
+  </div>
+
   <!-- ÉTAPE 1 & 2: Sélection Matière et Compositions -->
   @if (!compositionEnCours && !afficherResultat) {
     <div class="row">

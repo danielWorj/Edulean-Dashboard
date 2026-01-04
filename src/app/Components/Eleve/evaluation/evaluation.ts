@@ -10,6 +10,8 @@ import { ResponseServer } from '../../../Core/Model/Server/ResponseServer';
 import { Correction } from '../../../Core/Model/Evaluation/Correction';
 import { CommonModule } from '@angular/common';
 import { TentativeEvaluation } from '../../../Core/Model/Evaluation/Evaluation';
+import { Chart , registerables } from 'chart.js';
+Chart.register(...registerables);
 
 @Component({
   selector: 'app-evaluation',
@@ -396,6 +398,41 @@ export class Evaluation implements OnInit, OnDestroy {
         }
       }); 
     }
+  }
+
+
+getChart(){
+    const ctx = document.getElementById('myChart') as HTMLCanvasElement;
+    
+    // Créer un dégradé pour l'aire
+    const gradient = ctx.getContext('2d')!.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, 'rgba(233, 30, 99, 0.4)');   // Rose intense en haut
+    gradient.addColorStop(1, 'rgba(233, 30, 99, 0.0)');   // Transparent en bas
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+          label: '# of Votes',
+          data: [12, 19, 3, 5, 2, 3],
+          borderWidth: 3,
+          borderColor: '#E91E63',
+          backgroundColor: gradient, // Utiliser le dégradé
+          fill: true,
+          tension: 0.4,
+          pointRadius: 4,
+          pointBackgroundColor: '#E91E63'
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
   }
 
 }
