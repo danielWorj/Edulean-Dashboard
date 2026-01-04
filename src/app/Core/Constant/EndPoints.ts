@@ -143,6 +143,7 @@ export const edulearnDashboard = {
         TentativeEvaluation : {
             allbyeleve : `${evaluationapi}/tentative-evaluation/all/byeleve/`,
             findByComposition : `${evaluationapi}/tentative-evaluation/all/bycomposition/`,
+            findByEleveAndMatiere : `${evaluationapi}/tentative-evaluation/findby/eleve/matiere/`,
             create : `${evaluationapi}/tentative-evaluation/create`,
             update : `${evaluationapi}/tentative-evaluation/update`,
             delete : `${evaluationapi}/tentative-evaluation/delete/`,

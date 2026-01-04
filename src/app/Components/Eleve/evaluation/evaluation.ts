@@ -56,8 +56,10 @@ export class Evaluation implements OnInit, OnDestroy {
       reponseChoisie: new FormControl(),
     });
 
-    this.idEleve.set(5); // Valeur par défaut
-    //this.idEleve.set(Number(localStorage.getItem('idUser')));
+    //this.idEleve.set(5); // Valeur par défaut
+    this.idEleve.set(parseInt(sessionStorage.getItem('id')!));
+
+    console.log(sessionStorage.getItem('id'));
 
   }
 
@@ -435,4 +437,91 @@ getChart(){
     });
   }
 
+  //Eevolution des compositions par matiere 
+  //1- Liste des matiere :OK
+
+  //2- Liste des compositions d'un eleve pour une matiere et la note dans cette matiere 
+  listCompositionEleveAndMatiere = signal<TentativeEvaluation[]>([]); 
+
+
+  getAllCompositionEleveAndMatiere(idMatiere : number){
+      this.evaluationService.findTentativeEvaluationByEleveAndMatiere(this.idEleve(), idMatiere).subscribe({
+        next:(data : TentativeEvaluation[])=>{
+         this.listCompositionEleveAndMatiere.set(data); 
+         console.log(this.listCompositionEleveAndMatiere());
+        }, 
+        error:()=>{
+          console.log('fetch tentative devaluation by composition : failed '); 
+        }
+      }); 
+  }
+  openDropdown(){
+
+  }
+ 
+  listNote : number[]=[]; 
+  listDate : string[]=[]; 
+  isEmpty = signal<boolean>(false); 
+
+  async constructDataForGraph(event :any){
+    let id = event.target.value; 
+
+    console.log('id matiere ', id); 
+
+    let listNoteTemp =[]; 
+    let listDateTemp =[]; 
+
+    let listComposition = await this.evaluationService.findTentativeEvaluationByEleveAndMatiere(this.idEleve(),id).toPromise();
+
+    if (listComposition?.length==0) {
+      this.isEmpty.set(true); 
+    }else{
+       for(const comp of listComposition!){
+        listNoteTemp.push(comp!.note);
+        listDateTemp.push(comp!.dateCreated); 
+      }
+
+      this.listNote = listNoteTemp; 
+      this.listDate = listDateTemp; 
+
+      console.log('list des notes ', this.listNote); 
+      console.log('list des dates ', this.listDate); 
+      this.graphEvolutionEvaluationByMatiere(); 
+    }
+   
+  }
+
+  graphEvolutionEvaluationByMatiere(){
+       const ctx = document.getElementById('myChart') as HTMLCanvasElement;
+    
+    // Créer un dégradé pour l'aire
+    const gradient = ctx.getContext('2d')!.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, 'rgba(233, 30, 99, 0.4)');   // Rose intense en haut
+    gradient.addColorStop(1, 'rgba(233, 30, 99, 0.0)');   // Transparent en bas
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: this.listDate,
+        datasets: [{
+          label: 'note',
+          data: this.listNote,
+          borderWidth: 3,
+          borderColor: '#E91E63',
+          backgroundColor: gradient, // Utiliser le dégradé
+          fill: true,
+          tension: 0.4,
+          pointRadius: 4,
+          pointBackgroundColor: '#E91E63'
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  }
 }

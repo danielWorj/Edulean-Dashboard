@@ -28,7 +28,7 @@ export class MarketPlace {
     }); 
 
     this.idEnseignant.set(2); //TEST
-    //this.idEnseignant.set(parseInt(sessionStorage.getItem("id")!)); 
+    this.idEnseignant.set(parseInt(sessionStorage.getItem("id")!)); 
     this.loadPage();
   
   }

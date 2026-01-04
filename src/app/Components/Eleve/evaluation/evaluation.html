@@ -12,13 +12,31 @@
   </div>
 
   <p class="d-inline-flex gap-1">
-    <button (click)="getChart()" class="eleve-compo-btn-commencer" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    <button (click)="openDropdown()" class="eleve-compo-btn-commencer" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
       Voir les statistiques
     </button>
   </p>
   <div class="collapse mb-3" id="collapseExample">
     <div class="card card-body">
-      <canvas id="myChart"></canvas>
+      <div class="comp-form-group">
+          <label class="comp-label required">Matiere</label>
+          <select class="comp-select" (change)="constructDataForGraph($event)">
+            <option value="">-- Sélectionner --</option>
+            @for (t of listMatiere(); track $index) {
+                <option value="{{t.id}}">
+                    {{ t.intitule }}
+                </option>
+            }
+          </select>
+      </div>
+      @if (!isEmpty()) {
+        <canvas id="myChart"></canvas>
+      }@else {
+        <div class="alert alert-danger">
+          <i class="fas fa-exclamation-triangle"></i>
+          Aucune composition enregistré pour cette matiere.
+        </div>
+      }
     </div>
   </div>
 

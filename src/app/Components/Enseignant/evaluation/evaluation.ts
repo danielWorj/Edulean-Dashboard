@@ -80,8 +80,8 @@ export class Evaluation {
       question : new FormControl(''),
     });
 
-    this.idEnseignant.set(2); // Valeur par défaut
-    //this.idEnseignant.set(Number(localStorage.getItem('idUser')));
+    //this.idEnseignant.set(2); // Valeur par défaut
+    this.idEnseignant.set(parseInt(sessionStorage.getItem('idUser')!));
 
     this.loadPage();
 

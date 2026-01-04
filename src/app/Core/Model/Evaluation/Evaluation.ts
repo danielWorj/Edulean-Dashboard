@@ -6,6 +6,7 @@ export interface Evaluation{
     startTime : string; 
     endTime :string; 
     note : number ; 
+    dateCreated :string;
     completed : boolean ; 
     composition:Composition ; 
 }
@@ -15,6 +16,7 @@ export interface TentativeEvaluation{
     startTime : string; 
     endTime :string; 
     note : number ; 
+    dateCreated :string;
     completed : boolean ; 
     composition:Composition ;
 }

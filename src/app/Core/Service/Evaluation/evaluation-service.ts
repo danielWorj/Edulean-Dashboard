@@ -98,6 +98,11 @@ export class EvaluationService {
     return this.httpClient.get<TentativeEvaluation>(edulearnDashboard.Evaluation.TentativeEvaluation.findByComposition + id);
   }
 
+  findTentativeEvaluationByEleveAndMatiere(idE:number , idM:number):Observable<TentativeEvaluation[]>{
+    return this.httpClient.get<TentativeEvaluation[]>(edulearnDashboard.Evaluation.TentativeEvaluation.findByEleveAndMatiere + idE+'/'+idM);
+  }
+
+
   createTentativeEvaluation(request : any ): Observable<number>{
     return this.httpClient.post<number>(edulearnDashboard.Evaluation.TentativeEvaluation.create, request);
   }
