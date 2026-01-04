@@ -6,7 +6,7 @@ import { edulearnDashboard } from '../../Constant/EndPoints';
 import { ResponseServer } from '../../Model/Server/ResponseServer';
 import { Question } from '../../Model/Evaluation/Question';
 import { ReponsePossible } from '../../Model/Evaluation/ReponsePossible';
-import { Evaluation } from '../../Model/Evaluation/Evaluation';
+import { Evaluation, TentativeEvaluation } from '../../Model/Evaluation/Evaluation';
 import { ReponseEleve } from '../../Model/Evaluation/ReponseEleve';
 import { TypeEvaluation } from '../../Model/Evaluation/TypeEvaluation';
 
@@ -67,6 +67,10 @@ export class EvaluationService {
     return this.httpClient.get<ReponsePossible[]>(edulearnDashboard.Evaluation.ReponsePossible.allByQuestion + id);
   }
 
+  findReponsePossibleIsTrueByQuestion(id:number):Observable<ReponsePossible>{
+    return this.httpClient.get<ReponsePossible>(edulearnDashboard.Evaluation.ReponsePossible.isTruebyQuestion + id);
+  }
+
   createReponsePossible(request : any ): Observable<number>{
     return this.httpClient.post<number>(edulearnDashboard.Evaluation.ReponsePossible.create, request);
   }
@@ -90,6 +94,10 @@ export class EvaluationService {
     return this.httpClient.get<Evaluation[]>(edulearnDashboard.Evaluation.TentativeEvaluation.allbyeleve + id);
   }
 
+  findTentativeEvaluationByComposition(id:number):Observable<TentativeEvaluation>{
+    return this.httpClient.get<TentativeEvaluation>(edulearnDashboard.Evaluation.TentativeEvaluation.findByComposition + id);
+  }
+
   createTentativeEvaluation(request : any ): Observable<number>{
     return this.httpClient.post<number>(edulearnDashboard.Evaluation.TentativeEvaluation.create, request);
   }
@@ -106,10 +114,19 @@ export class EvaluationService {
     return this.httpClient.get<number>(edulearnDashboard.Evaluation.TentativeEvaluation.noteFinal + id);
   }
 
+  nettoyageTentativeEvaluation(id : number ): Observable<ResponseServer>{
+    return this.httpClient.get<ResponseServer>(edulearnDashboard.Evaluation.TentativeEvaluation.nettoyage + id);
+  }
+
+
   //Reponse Eleve API
 
   getAllReponseEleveByTentativeEvaluation(id:number):Observable<ReponseEleve[]>{
     return this.httpClient.get<ReponseEleve[]>(edulearnDashboard.Evaluation.ReponseEleve.allbytentative + id);
+  }
+
+  findReponseEleveByQuestion(id:number):Observable<ReponseEleve>{
+    return this.httpClient.get<ReponseEleve>(edulearnDashboard.Evaluation.ReponseEleve.byquestion + id);
   }
 
   createReponseEleve(request : any ): Observable<ResponseServer>{

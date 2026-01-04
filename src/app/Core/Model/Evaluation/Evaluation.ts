@@ -9,3 +9,12 @@ export interface Evaluation{
     completed : boolean ; 
     composition:Composition ; 
 }
+
+export interface TentativeEvaluation{
+    id: number;
+    startTime : string; 
+    endTime :string; 
+    note : number ; 
+    completed : boolean ; 
+    composition:Composition ;
+}

@@ -133,6 +133,7 @@ export const edulearnDashboard = {
 
         ReponsePossible : {
             allByQuestion : `${evaluationapi}/reponse-possible/all/byquestion/`,
+            isTruebyQuestion : `${evaluationapi}/reponse-possible/istrue/byquestion/`,
             create : `${evaluationapi}/reponse-possible/create`,
             update : `${evaluationapi}/reponse-possible/update`,
             validate : `${evaluationapi}/reponse-possible/validate/`,
@@ -141,13 +142,16 @@ export const edulearnDashboard = {
 
         TentativeEvaluation : {
             allbyeleve : `${evaluationapi}/tentative-evaluation/all/byeleve/`,
+            findByComposition : `${evaluationapi}/tentative-evaluation/all/bycomposition/`,
             create : `${evaluationapi}/tentative-evaluation/create`,
             update : `${evaluationapi}/tentative-evaluation/update`,
             delete : `${evaluationapi}/tentative-evaluation/delete/`,
             noteFinal : `${evaluationapi}/tentative-evaluation/notefinale/bytentative/`,
+            nettoyage : `${evaluationapi}/tentative-evaluation/nettoyage/`,
         }, 
         ReponseEleve : {
             allbytentative : `${evaluationapi}/reponse-eleve/all/bytentative/`,
+            byquestion : `${evaluationapi}/reponse-eleve/byquestion/`,
             create : `${evaluationapi}/reponse-eleve/create`,
             update : `${evaluationapi}/reponse-eleve/update`,
             delete : `${evaluationapi}/reponse-eleve/delete/`,
