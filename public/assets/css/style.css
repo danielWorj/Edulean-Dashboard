@@ -3445,7 +3445,7 @@
             }
 
             .message-bubble {
-                max-width: 85%;
+                max-width: 100%;
             }
 
             .assistant-ia-suggestions {
@@ -3486,6 +3486,90 @@
 
         .assistant-ia-messages::-webkit-scrollbar-thumb:hover {
             background: var(--secondary);
+        }
+
+        /* Styles spécifiques pour le formatage des réponses */
+        .response-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin: 1rem 0 0.5rem 0;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid rgba(139, 21, 56, 0.1);
+        }
+
+        .response-title:first-child {
+        margin-top: 0;
+        }
+
+        .response-paragraph {
+        line-height: 1.7;
+        margin-bottom: 0.8rem;
+        text-align: justify;
+        color: var(--text-dark);
+        }
+
+        .response-paragraph:last-child {
+        margin-bottom: 0;
+        }
+
+        .response-paragraph strong {
+        font-weight: 700;
+        color: var(--primary);
+        }
+
+        /* Animation des messages */
+        .message-bubble {
+        animation: messageSlideIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        @keyframes messageSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(15px) scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        }
+
+        /* Amélioration du textarea */
+        .input-group-custom textarea {
+        transition: height 0.2s ease;
+        line-height: 1.5;
+        }
+
+        .input-group-custom textarea::-webkit-scrollbar {
+        width: 6px;
+        }
+
+        .input-group-custom textarea::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+        }
+
+        .input-group-custom textarea::-webkit-scrollbar-thumb {
+        background: var(--primary);
+        border-radius: 10px;
+        }
+
+        /* État désactivé du bouton d'envoi */
+        .send-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none !important;
+        }
+
+        /* Responsive amélioré */
+        @media (max-width: 576px) {
+        .response-title {
+            font-size: 1rem;
+        }
+        
+        .response-paragraph {
+            font-size: 0.9rem;
+        }
         }
 
         /* Responsive */

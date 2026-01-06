@@ -6,6 +6,7 @@ const repetitionapi = `${api}/repetition`;
 const marketplaceapi = `${api}/marketplace`; 
 const generalapi = `${api}/general`; 
 const evaluationapi = `${api}/evaluation`; 
+const aiapi = `${api}/ia`
 
 
 
@@ -164,6 +165,10 @@ export const edulearnDashboard = {
         }
         
 
+    }, 
+
+    IA :{
+        assistant : `${aiapi}/assistant`
     }
 
 }

@@ -59,7 +59,8 @@ export class Evaluation implements OnInit, OnDestroy {
     //this.idEleve.set(5); // Valeur par défaut
     this.idEleve.set(parseInt(sessionStorage.getItem('id')!));
 
-    console.log(sessionStorage.getItem('id'));
+    //console.log(sessionStorage.getItem('id'));
+    //console.log(this.idEleve());
 
   }
 
