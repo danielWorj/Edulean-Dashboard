@@ -32,6 +32,14 @@ export class EvaluationService {
     return this.httpClient.get<Composition[]>(edulearnDashboard.Evaluation.Composition.allbymatiere + id);
   }
 
+  getAllCompositionNonArchivedByEleve(id:number):Observable<Composition[]>{
+    return this.httpClient.get<Composition[]>(edulearnDashboard.Evaluation.Composition.allNonArchivedbyEleve + id);
+  }
+
+  getAllCompositionNonArchivedByMatiere(id:number):Observable<Composition[]>{
+    return this.httpClient.get<Composition[]>(edulearnDashboard.Evaluation.Composition.allNonArchivedbyMatiere + id);
+  }
+
   createComposition(request : any ): Observable<number>{
     return this.httpClient.post<number>(edulearnDashboard.Evaluation.Composition.create, request);
   }

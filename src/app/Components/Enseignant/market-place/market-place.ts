@@ -27,7 +27,7 @@ export class MarketPlace {
       typeResource: new FormControl(), 
     }); 
 
-    this.idEnseignant.set(2); //TEST
+    //this.idEnseignant.set(2); //TEST
     this.idEnseignant.set(parseInt(sessionStorage.getItem("id")!)); 
     this.loadPage();
   

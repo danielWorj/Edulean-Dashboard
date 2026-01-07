@@ -4,6 +4,20 @@
 @if (isConnected) {
 
   <app-sidebar></app-sidebar>
-   
-  <router-outlet></router-outlet>
+  
+  <main class="main-content">
+    <!-- Bouton menu mobile -->
+    <button class="mobile-menu-btn" (click)="toggleSidebar()">
+        <i class="fas fa-bars"></i> Menu
+    </button>
+    
+    <!-- Contenu existant... -->
+    <router-outlet></router-outlet>
+
+    
+    <!-- Autres sections... -->
+</main>
+
+<!-- Overlay pour fermer le sidebar en cliquant à côté -->
+<div class="sidebar-overlay" id="sidebarOverlay" (click)="closeSidebar()"></div>
 }

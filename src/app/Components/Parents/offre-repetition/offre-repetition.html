@@ -1,9 +1,4 @@
 
- <main class="main-content">
-        
-        <button class="mobile-menu-btn" onclick="toggleSidebar()">
-            <i class="fas fa-bars"></i> Menu
-        </button>
         
         <div id="dashboard-section">
             <div class="header">
@@ -42,7 +37,7 @@
                 <div class="row">
                       @if (listOffreRepetitionByParent().length !== 0) {
                             @for (o of listOffreRepetitionByParent(); track o.id) {
-                                <div class="col-md-5 offre-card m-1">
+                                <div class="col-md-6 offre-card">
                                     <div class="offre-header d-flex justify-content-between">
                                         <h3 class="offre-title">{{ o.intitule }}</h3>
                                         <div>
@@ -151,5 +146,3 @@
             </div>
         </div>
 </div>
-
-</main>

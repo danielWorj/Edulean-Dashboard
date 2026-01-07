@@ -120,6 +120,8 @@ export const edulearnDashboard = {
         Composition : {
             allbyenseignant : `${evaluationapi}/composition/all/byenseignant/`,
             allbymatiere : `${evaluationapi}/composition/all/bymatiere/`,
+            allNonArchivedbyEleve : `${evaluationapi}/composition/nonarchived/byeleve/`,
+            allNonArchivedbyMatiere : `${evaluationapi}/composition/nonarchived/bymatiere/`,
             create : `${evaluationapi}/composition/create`,
             update : `${evaluationapi}/composition/update`,
             delete : `${evaluationapi}/composition/delete/`,

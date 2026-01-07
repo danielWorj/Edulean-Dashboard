@@ -185,7 +185,10 @@
             color: var(--text-dark);
             overflow-x: hidden;
         }
-
+        .text-primary-custom{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--accent);
+        }
         /* --- SIDEBAR --- */
         .sidebar {
             position: fixed; left: 0; top: 0; height: 100vh; width: 280px;
@@ -3468,6 +3471,76 @@
                 white-space: nowrap;
             }
         }
+        /* Bouton de fermeture du sidebar (visible uniquement en mobile) */
+        .sidebar-close-btn {
+            display: none;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(139, 21, 56, 0.1);
+            color: var(--primary);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            z-index: 1060;
+        }
+
+        .sidebar-close-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        /* Responsive - Afficher le bouton close en mobile */
+        @media (max-width: 768px) {
+            .sidebar-close-btn {
+                display: flex;
+            }
+            
+            /* Sidebar en mobile */
+            .sidebar {
+                transform: translateX(-100%);
+                box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            /* Overlay */
+            .sidebar-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 1040;
+                backdrop-filter: blur(2px);
+            }
+            
+            .sidebar-overlay.active {
+                display: block;
+            }
+            
+            /* Main content */
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+            
+            /* Bouton menu mobile */
+            .mobile-menu-btn {
+                display: flex;
+            }
+}
 
         /* Scrollbar personnalisée */
         .assistant-ia-messages::-webkit-scrollbar {
