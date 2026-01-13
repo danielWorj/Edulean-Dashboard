@@ -8,6 +8,7 @@ import { SessionRepetition } from '../../Model/Repetition/SessionRepetition';
 import { MatiereRepetition } from '../../Model/Repetition/MatiereRepetition';
 import { HoraireRepetition } from '../../Model/Repetition/HoraireRepetition';
 import { Matiere } from '../../Model/Academie/Matiere';
+import { Enseignant } from '../../Model/Utilisateur/Enseignant/Enseignant';
 
 @Injectable({
   providedIn: 'root',
@@ -24,8 +25,8 @@ export class RepetitionService {
   findOffreByCode(code :string):Observable<OffreRepetitionM>{
     return this.http.get<OffreRepetitionM>(edulearnDashboard.OffreRepetition.findByCode+code);
   }
-  createOffreRepetition(request: any): Observable<ResponseServer> {
-    return this.http.post<ResponseServer>(edulearnDashboard.OffreRepetition.create, request);
+  createOffreRepetition(request: any): Observable<Enseignant[]> {
+    return this.http.post<Enseignant[]>(edulearnDashboard.OffreRepetition.create, request);
   }
   updateOffreRepetition(request: any): Observable<ResponseServer> {
     return this.http.put<ResponseServer>(edulearnDashboard.OffreRepetition.update, request);

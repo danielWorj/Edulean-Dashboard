@@ -1,0 +1,137 @@
+
+    <section class="hero">
+        <div class="container">
+            <div class="text-center">
+                <h1><i class="fas fa-shopping-cart me-3"></i>Marketplace de Ressources</h1>
+                <p>Cours, annales, sujets corrigés et supports pédagogiques de qualité</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container" style="margin-top: -30px;">
+        <div class="search-section">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <input type="text" class="form-control search-input" id="searchInput" placeholder="🔍 Rechercher une ressource...">
+                </div>
+                <div class="col-md-3">
+                    <select class="form-select search-input" id="classeFilter">
+                        <option value="">Type de Ressource</option>
+                        @for (tr of listTypeRessource(); track $index) {
+                            <option value="{{tr.id}}">{{tr.nom}}</option>
+                        }   
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-search w-100" onclick="filterResources()">
+                        <i class="fas fa-search me-2"></i>Rechercher
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="categories-section">
+            <div class="text-center mb-3">
+                <strong style="color: var(--primary); font-size: 1.1rem;">
+                    <i class="fas fa-filter me-2"></i>Catégories
+                </strong>
+            </div>
+            <div class="text-center">
+                <button class="category-btn active" onclick="filterByCategory('all')">
+                    <i class="fas fa-th me-2"></i>Toutes les ressources
+                </button>
+                <button class="category-btn" onclick="filterByCategory('annales')">
+                    <i class="fas fa-book me-2"></i>Annales & Sujets
+                </button>
+                <button class="category-btn" onclick="filterByCategory('cours')">
+                    <i class="fas fa-file-alt me-2"></i>Cours Complets
+                </button>
+                <button class="category-btn" onclick="filterByCategory('exercices')">
+                    <i class="fas fa-pen me-2"></i>Exercices Corrigés
+                </button>
+                <button class="category-btn" onclick="filterByCategory('fiches')">
+                    <i class="fas fa-sticky-note me-2"></i>Fiches de Révision
+                </button>
+                <button class="category-btn" onclick="filterByCategory('videos')">
+                    <i class="fas fa-video me-2"></i>Cours Vidéo
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-number">2,500+</div>
+                <div class="stat-label">Ressources disponibles</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">15,000+</div>
+                <div class="stat-label">Téléchargements</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">4.8/5</div>
+                <div class="stat-label">Note moyenne</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Matières</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container" style="padding: 2rem 0;">
+        @if (listRessource().length!=0) {
+            <div class="row g-4" id="resourcesContainer">
+                <!-- Resource Card 1 -->
+                @for (r of listRessource(); track $index) {
+                    <div class="col-lg-4 col-md-6 resource-item" data-category="annales" data-classe="tle">
+                        <div class="resource-card">
+                            <div class="resource-header">
+                                <span class="resource-type-badge">{{r.typeResource.nom}}</span>
+                                <div class="resource-icon">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                <h3 class="resource-title">{{r.nom}}</h3>
+                            </div>
+                            <div class="resource-body">
+                                <div class="resource-meta">
+                                    <div class="meta-item">
+                                        <i class="fas fa-book"></i>
+                                        <span>{{r.typeResource.nom}}</span>
+                                    </div>
+                                    
+                                </div>
+                                <p class="resource-description">
+                                    {{r.description}}
+                                </p>
+                                
+                                <div class="price-section">
+                                    <span class="price">{{r.prix}}</span>
+                                    <span class="price-old">20,000 FCFA</span>
+                                    <span class="discount-badge">-25%</span>
+                                </div>
+                                <button class="btn btn-buy">
+                                    <i class="fas fa-shopping-cart me-2"></i>Acheter maintenant
+                                </button>
+                                <button class="btn btn-preview">
+                                    <i class="fas fa-eye me-2"></i>Aperçu gratuit
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            
+            </div>
+        }@else {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Oups !</strong> Aucune ressources enregistrees.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+    </section>
+
+   

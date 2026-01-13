@@ -5,6 +5,7 @@ import { OffreRepetitionM } from '../../../Core/Model/Repetition/OffreRepetition
 import { Eleve } from '../../../Core/Model/Utilisateur/Eleve/Eleve';
 import { UtilisateurService } from '../../../Core/Service/Utlisateur/utilisateur-service';
 import { ResponseServer } from '../../../Core/Model/Server/ResponseServer';
+import { Enseignant } from '../../../Core/Model/Utilisateur/Enseignant/Enseignant';
 
 @Component({
   selector: 'app-offre-repetition',
@@ -95,8 +96,8 @@ export class OffreRepetition {
       formData.append('offrerepetition', JSON.stringify(this.offreRepitionForm.value));
 
       this.repetitionService.createOffreRepetition(formData).subscribe({
-        next: (response: ResponseServer) => {
-          if (response.status) {
+        next: (response: Enseignant[]) => {
+          if (response.length!=0) {
             alert('Offre Repetition created successfully'); 
             this.loadPage(); 
             this.offreRepitionForm.reset(); 

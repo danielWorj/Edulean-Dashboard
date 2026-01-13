@@ -11,6 +11,7 @@ import { Correction } from '../../../Core/Model/Evaluation/Correction';
 import { CommonModule } from '@angular/common';
 import { TentativeEvaluation } from '../../../Core/Model/Evaluation/Evaluation';
 import { Chart , registerables } from 'chart.js';
+import { AssistantService } from '../../../Core/Service/IA/Assistant-Service/assistant-service';
 Chart.register(...registerables);
 
 @Component({
@@ -38,7 +39,8 @@ export class Evaluation implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private evaluationService: EvaluationService,
-    private repetitionService: RepetitionService
+    private repetitionService: RepetitionService, 
+    private iaService : AssistantService
   ) {
     this.tentativeCompositionForm = this.fb.group({
       id: new FormControl(),
@@ -525,4 +527,7 @@ getChart(){
       }
     });
   }
+
+
+ 
 }

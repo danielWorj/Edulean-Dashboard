@@ -24,5 +24,10 @@ export class AssistantService {
       responseType: 'text' 
     });
   }
+
+  testMacthingProcess(request:any){
+    return this.http.post<any>("http://localhost:5000/match", request); 
+
+  }
   
 }

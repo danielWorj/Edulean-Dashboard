@@ -12,6 +12,7 @@ export interface Enseignant extends Utilisateur {
     cv : string ; 
     diplomeurl : string ; 
     section : Section ; 
+    specialite :string;
     diplome : Diplome; 
     statusEnseignant : StatusEnseignant; 
     profilEnseignant : ProfilEnseignant; 

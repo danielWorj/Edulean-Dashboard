@@ -5,6 +5,7 @@ import { EvaluationService } from '../../../Core/Service/Evaluation/evaluation-s
 import { Chart, registerables } from 'chart.js';
 import { Matiere } from '../../../Core/Model/Academie/Matiere';
 import { Composition } from '../../../Core/Model/Evaluation/Composition';
+import { AssistantService } from '../../../Core/Service/IA/Assistant-Service/assistant-service';
 Chart.register(...registerables);
 
 @Component({
@@ -26,7 +27,8 @@ export class Dashboard {
 
   constructor(
     private repetitionService: RepetitionService,
-    private evaluationService: EvaluationService
+    private evaluationService: EvaluationService, 
+    private iaService : AssistantService
   ) {
     this.idEleve.set(5);
     //this.idEleve.set(parseInt(sessionStorage.getItem('id')!));
@@ -294,4 +296,42 @@ export class Dashboard {
   //     }
   //   }
   // }
+
+  //  testMatchingAPI(){
+  //   const formData : FormData = new FormData; 
+  //   formData.append("job_description", JSON.stringify("Enfant en difficulte en Physique, besoin d'un enseigannt de toute urgence a Makepe" )); 
+  //   formData.append("cv_filename","Justine KAMGA FOKOU.pdf" ); 
+
+  
+
+  //   this.iaService.testMacthingProcess(formData).subscribe({
+  //     next:(data:any)=>{
+  //       console.log(data); 
+  //     }, 
+  //     error : ()=>{
+  //       console.log('matching process failed '); 
+  //     }
+  //   })
+  // }
+
+  testMatchingAPI() {
+// ✅ Créer un objet JSON simple (pas FormData)
+    const requestBody = {
+      job_description: "J'ai besoin d'un enseignant de francais pour repeter mon enfant de Terminnale A qui a des difficultes en francais. Nous residons a Douala Makepe ",
+      cv_filename:"Belinga Ngoh 2.pdf" //"Christophe MEBUNGA MBARGA.pdf"// "Justine KAMGA FOKOU.pdf"//"SAMBA VENANT  LANDRY CONTRACT.pdf" //"BIYEGUE OREL PHYSIQUE.pdf"
+    };
+    console.log('Envoi de la requête:', requestBody);
+    this.iaService.testMacthingProcess(requestBody).subscribe({
+      next: (data: any) => {
+        console.log('✅ Réponse API:', data);
+        console.log('Score de matching:', data.match_score);
+        console.log('Interprétation:', data.interpretation);
+      },
+    error: (error) => {
+        console.error('❌ Erreur matching:', error);
+        console.error('Status:', error.status);
+        console.error('Message:', error.error);
+      }
+    });
+    }
 }

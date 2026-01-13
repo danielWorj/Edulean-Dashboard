@@ -3,20 +3,91 @@
 }
 @if (isConnected) {
 
-  <app-sidebar></app-sidebar>
-  
-  <main class="main-content">
-    <!-- Bouton menu mobile -->
-    <button class="mobile-menu-btn" (click)="toggleSidebar()">
-        <i class="fas fa-bars"></i> Menu
-    </button>
-    
-    <!-- Contenu existant... -->
-    <router-outlet></router-outlet>
+  @if (role!=0) {
+    <app-sidebar></app-sidebar>
 
+    <main class="main-content">
+        <!-- Bouton menu mobile -->
+        <button class="mobile-menu-btn" (click)="toggleSidebar()">
+            <i class="fas fa-bars"></i> Menu
+        </button>
+        
+        <!-- Contenu existant... -->
+        <router-outlet></router-outlet>
+
+        
+        <!-- Autres sections... -->
+    </main>
+  }
+  @if (role==0) {
+        <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#" onclick="showPage('accueil')">
+                <i class="fas fa-graduation-cap"></i> EduFreelance
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="background: white;">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="home" routerLinkActive="active">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="enseignants" routerLinkActive="active">Enseignants</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="marketplace" routerLinkActive="active">Marketplace</a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link" routerLink="offre-repetition" routerLinkActive="active">Offre Repetition</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="home" routerLinkActive="active">Comment ça marche</a>
+                    </li>
+                   
+                </ul>
+            </div>
+        </div>
+    </nav>
     
-    <!-- Autres sections... -->
-</main>
+    <div id="page-accueil">
+        <router-outlet></router-outlet>
+
+    </div>
+<!-- 
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>EduFreelance</h5>
+                    <p>Votre plateforme de mise en relation avec des enseignants qualifiés.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Liens Utiles</h5>
+                    <a href="index.html">Accueil</a>
+                    <a href="enseignants.html">Enseignants</a>
+                    <a href="marketplace.html">Marketplace</a>
+                    <a href="comment.html">Comment ça marche</a>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contactez-nous</h5>
+                    <p>Email: <a href="mailto:" style="color: white;"       >   
+                </a>
+                    </p>    
+                    <p>Téléphone: +237 123 456 789</p>
+                    <p>Adresse: Douala, Cameroun</p>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                &copy; 2024 EduFreelance. Tous droits réservés.
+            </div>
+        </div>
+    </footer>   -->
+
+  }
+  
+  
 
 <!-- Overlay pour fermer le sidebar en cliquant à côté -->
 <div class="sidebar-overlay" id="sidebarOverlay" (click)="closeSidebar()"></div>

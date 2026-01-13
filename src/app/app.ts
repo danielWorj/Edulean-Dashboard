@@ -6,7 +6,7 @@ import { Sidebar } from "./Layout/sidebar/sidebar";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Auth, Dashboard, Sidebar],
+  imports: [RouterOutlet, Auth, Sidebar],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -17,13 +17,13 @@ export class App {
   //isConnected:boolean = false; //En Prod
   
   
-  roleParent : number = 0; 
+  role : number = 0; 
 
   changeIsConnected(e:any){
     this.isConnected=(e); 
     //console.log('is connected value :', this.isConnected); 
 
-    this.roleParent = parseInt(sessionStorage.getItem("role")!); 
+    this.role = parseInt(sessionStorage.getItem("role")!); 
 
     console.log('le role est :', sessionStorage.getItem("role")!);
     

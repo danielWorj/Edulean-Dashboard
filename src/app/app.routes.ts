@@ -3,10 +3,33 @@ import { Enfants } from './Components/Parents/enfants/enfants';
 import { Paiements } from './Components/Parents/paiements/paiements';
 import { Auth } from './Components/auth/auth';
 import { App } from './app';
+import { Acceuil } from './Components/Platform/acceuil/acceuil';
+import { EnseignantsPlatform } from './Components/Platform/enseignants/enseignants';
+import { MarketPlacePlatform } from './Components/Platform/market-place/market-place';
 
 export const routes: Routes = [
+     //Platform 
+     {
+        path: '',
+        component : Acceuil
+    }, 
     {
-         path: '',
+        path: 'home',
+        component : Acceuil
+    }, 
+     
+    {
+        path: 'enseignants',
+        component : EnseignantsPlatform
+    }, 
+    {
+        path: 'marketplace',
+        component : MarketPlacePlatform
+    }, 
+
+    //
+    {
+         path: 'auth',
          loadComponent: () => import('./Components/auth/auth').then(a => a.Auth)
     },
     {

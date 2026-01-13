@@ -1,6 +1,6 @@
 import { Type } from "@angular/core";
 
-const api = "http://localhost:8080/edulearn/api"
+const api = "http://localhost:8080/edulearn/api"            
 const userapi = `${api}/user`; 
 const repetitionapi = `${api}/repetition`; 
 const marketplaceapi = `${api}/marketplace`; 
