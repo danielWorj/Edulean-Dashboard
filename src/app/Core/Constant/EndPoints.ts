@@ -1,4 +1,5 @@
 import { Type } from "@angular/core";
+import { create } from "domain";
 
 const api = "http://localhost:8080/edulearn/api"            
 const userapi = `${api}/user`; 
@@ -13,6 +14,9 @@ const aiapi = `${api}/ia`
 export const edulearnDashboard = {
     Auth :{
         login : `${userapi}/login`, 
+    }, 
+    Parent :{
+        create : `${userapi}/parent/create`,
     }, 
     Enseignant :{
         all : `${userapi}/enseignant/all`,

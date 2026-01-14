@@ -7,18 +7,19 @@ import { Section } from '../../../Core/Model/Academie/Section';
 import { StatusEnseignant } from '../../../Core/Model/Utilisateur/Enseignant/StatusEnseignant';
 import { ProfilEnseignant } from '../../../Core/Model/Utilisateur/Enseignant/ProfilEnseignant';
 import { Diplome } from '../../../Core/Model/Utilisateur/Enseignant/Diplome';
+import { Router } from '@angular/router';
 
 
 @Component({
   selector: 'app-acceuil',
-  imports: [ReactiveFormsModule,upload],
+  imports: [ReactiveFormsModule],
   templateUrl: './acceuil.html',
   styleUrl: './acceuil.css',
 })
 export class Acceuil {
   enseignantForm !: FormGroup;
   parentForm !: FormGroup;
-  constructor(private fb : FormBuilder , private utilisateur: UtilisateurService , private generalService : GeneralService){
+  constructor(private fb : FormBuilder ,private router: Router,  private utilisateur: UtilisateurService , private generalService : GeneralService){
       this.enseignantForm = this.fb.group({
         id: new FormControl(),
         nomComplet: new FormControl(),
@@ -241,37 +242,47 @@ export class Acceuil {
   }
   createEnseignantAccount(){
 
-    this.correspondancePassword(this.password(), this.confirmpassword());
+    // this.correspondancePassword(this.password(), this.confirmpassword());
 
-    if (this.password()!=this.confirmpassword()) {
-      this.showErrormessage.set(true); 
-      this.messageErrorPassword.set("Les mots de passes ne correspondent pas.")
-    }else{
-        let formData : FormData = new FormData();
+    // if (this.password()!=this.confirmpassword()) {
+    //   this.showErrormessage.set(true); 
+    //   this.messageErrorPassword.set("Les mots de passes ne correspondent pas.")
+    // }else{
+    //     let formData : FormData = new FormData();
 
-        this.enseignantForm.controls['password'].setValue(this.passwordToStore()); 
+    //     this.enseignantForm.controls['password'].setValue(this.passwordToStore()); 
 
-        formData.append('enseignant', JSON.stringify(this.enseignantForm.value));
-        formData.append('photo', this.photoProfilFile);
-        formData.append('cv', this.cvFile);
-        formData.append('diplome', this.diplomeFile);
+    //     formData.append('enseignant', JSON.stringify(this.enseignantForm.value));
+    //     formData.append('photo', this.photoProfilFile);
+    //     formData.append('cv', this.cvFile);
+    //     formData.append('diplome', this.diplomeFile);
 
-        console.log('Form Data:', this.enseignantForm.value);
+    //     console.log('Form Data:', this.enseignantForm.value);
 
-        //Appel au service pour créer l'enseignant
-        this.utilisateur.createEnseignant(formData).subscribe({
-          next: (response:number) => {
-            // response c'est l'id de l'enseignant créé
-            if (response > 0) {
-              alert('Enseignant created successfully');
-              this.enseignantForm.reset();
-            }
-          },
-          error: (error) => {
-            console.error('Error creating enseignant', error);
-          }
-        });
-    }
+    //     //Appel au service pour créer l'enseignant
+    //     this.utilisateur.createEnseignant(formData).subscribe({
+    //       next: (response:number) => {
+    //         // response c'est l'id de l'enseignant créé
+    //         if (response > 0) {
+    //           alert('Enseignant created successfully');
+    //           sessionStorage.setItem('role','2'); 
+    //           this.enseignantForm.reset();
+    //           let dashboardRoute= '/guide';
+                
+    //           this.router.navigate([dashboardRoute]);
+    //         }
+    //       },
+    //       error: (error) => {
+    //         console.error('Error creating enseignant', error);
+    //       }
+    //     });
+    // }
+
+    sessionStorage.setItem('role','2');
+
+    let dashboardRoute = 'guide'; 
+
+    this.router.navigate([dashboardRoute]);
 
   
   }
@@ -280,39 +291,53 @@ export class Acceuil {
 
     //Construction du FormData pour l'envoi des données du parent
 
-    this.correspondancePassword(this.password(), this.confirmpassword());
+    // this.correspondancePassword(this.password(), this.confirmpassword());
 
-    if (this.password()!=this.confirmpassword()) {
-      this.showErrormessage.set(true); 
-      this.messageErrorPassword.set("Les mots de passes ne correspondent pas.")
-    }else{
+    // if (this.password()!=this.confirmpassword()) {
+    //   this.showErrormessage.set(true); 
+    //   this.messageErrorPassword.set("Les mots de passes ne correspondent pas.")
+    // }else{
 
-         let formData : FormData = new FormData();
+    //      let formData : FormData = new FormData();
 
-          this.parentForm.controls['password'].setValue(this.passwordToStore()); 
+    //       this.parentForm.controls['password'].setValue(this.passwordToStore()); 
 
 
-          formData.append('parent', JSON.stringify(this.parentForm.value));
-          formData.append('photo', this.photoProfilFile);
-          formData.append('cni', this.cniFile);
+    //       formData.append('parent', JSON.stringify(this.parentForm.value));
+    //       formData.append('photo', this.photoProfilFile);
+    //       formData.append('cni', this.cniFile);
        
 
-          console.log('Form Data:', this.parentForm.value);
+    //       console.log('Form Data:', this.parentForm.value);
 
-          // Appel au service pour créer le parent
-          this.utilisateur.createParent(formData).subscribe({
-            next: (response:number) => {
-              // response c'est l'id du parent créé
-              if (response > 0) {
-                alert('Parent created successfully');
-                this.parentForm.reset();
-              } 
-            },
-            error: (error) => {
-              console.error('Error creating parent', error);
-            }
-          });
-    }
+    //       // Appel au service pour créer le parent
+    //       this.utilisateur.createParent(formData).subscribe({
+    //         next: (response:number) => {
+    //           // response c'est l'id du parent créé
+    //           if (response > 0) {
+
+    //             alert('Parent created successfully');
+              
+    //             sessionStorage.setItem('role','3'); 
+
+    //             this.parentForm.reset();
+                
+    //             let dashboardRoute= '/auth';
+                
+    //             this.router.navigate([dashboardRoute]);
+
+    //           } 
+    //         },
+    //         error: (error) => {
+    //           console.error('Error creating parent', error);
+    //         }
+    //       });
+    // }
+    sessionStorage.setItem('role','3');
+
+    let dashboardRoute = 'guide'; 
+
+    this.router.navigate([dashboardRoute]);
   }
 
   

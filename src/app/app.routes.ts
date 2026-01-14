@@ -28,6 +28,10 @@ export const routes: Routes = [
     }, 
 
     //
+     {
+         path: 'guide',
+         loadComponent: () => import('./Components/Platform/guide/guide').then(g => g.Guide)
+    },
     {
          path: 'auth',
          loadComponent: () => import('./Components/auth/auth').then(a => a.Auth)

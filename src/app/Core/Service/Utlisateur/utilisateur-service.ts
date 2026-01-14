@@ -47,7 +47,7 @@ export class UtilisateurService {
 
   //Parent related methods
   createParent(request:any): Observable<number> {
-    return this.http.post<number>(`${edulearnDashboard.Enseignant.create}`, request);
+    return this.http.post<number>(`${edulearnDashboard.Parent.create}`, request);
   }
 
 
