@@ -1,26 +1,7 @@
-@if (!isConnected) {
-  <app-auth (statutConnection)="changeIsConnected($event)"></app-auth>
-}
-@if (isConnected) {
 
-  @if (role!=0) {
-    <app-sidebar></app-sidebar>
 
-    <main class="main-content">
-        <!-- Bouton menu mobile -->
-        <button class="mobile-menu-btn" (click)="toggleSidebar()">
-            <i class="fas fa-bars"></i> Menu
-        </button>
-        
-        <!-- Contenu existant... -->
-        <router-outlet></router-outlet>
-
-        
-        <!-- Autres sections... -->
-    </main>
-  }
-  @if (role==0) {
-        <nav class="navbar navbar-expand-lg sticky-top">
+@if (isPlatform()) {
+     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
             <a class="navbar-brand" href="#" onclick="showPage('accueil')">
                 <i class="fas fa-graduation-cap"></i> EduFreelance
@@ -31,27 +12,27 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item">
-                        <a class="nav-link" routerLink="home" routerLinkActive="active">
+                        <button class="nav-link" (click)="routing('acceuil')">
                             <i class="fas fa-home"></i>Accueil
-                        </a>
+                        </button>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" routerLink="enseignants" routerLinkActive="active">
+                        <button class="nav-link" (click)="routing('enseignants')">
                             <i class="fas fa-users"></i>Enseignants
-                        </a>
+                        </button>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" routerLink="marketplace" routerLinkActive="active">
+                        <button class="nav-link" (click)="routing('marketplace')">
                             <i class="fas fa-book"></i>Marketplace
-                        </a>
+                        </button>
                     </li>
                      <li class="nav-item">
-                        <a class="nav-link" routerLink="offre-repetition" routerLinkActive="active">
+                        <a class="nav-link" (click)="routing('offres')" >
                             <i class="fas fa-list"></i>Offre 
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" routerLink="auth" routerLinkActive="active">
+                        <a class="nav-link"  (click)="routing('auth')">
                             <i class="fas fa-sign-in"></i>Connexion
                         </a>
                     </li>
@@ -62,8 +43,19 @@
     </nav>
     
     <div id="page-accueil">
-        <router-outlet></router-outlet>
-
+        @if (page()=='acceuil') {
+            <app-acceuil (statutAccount)="changeStatusAccount($event)"></app-acceuil>
+        }
+        @if (page()=='enseignants') {
+            <app-enseignants></app-enseignants>
+        }
+        @if (page()=='marketplace') {
+            <app-market-place-platform></app-market-place-platform>
+        }
+        @if (page()=='offres') {
+            <app-offre-reptition-platform></app-offre-reptition-platform>
+        }
+        
     </div>
 <!-- 
     <footer>
@@ -95,10 +87,40 @@
         </div>
     </footer>   -->
 
+}
+
+@if (!isPlatform()) {
+@if (!isConnected) {
+
+  @if (!isGuide()) {
+     <app-auth (statutConnection)="changeIsConnected($event)"></app-auth>
+  }@if(isGuide()){
+     <app-guide (continueToLogin)="toggleToLogin($event)"></app-guide>
   }
+}
+@if (isConnected) {
+
+  @if (role!=0) {
+    <app-sidebar></app-sidebar>
+
+    <main class="main-content">
+        <!-- Bouton menu mobile -->
+        <button class="mobile-menu-btn" (click)="toggleSidebar()">
+            <i class="fas fa-bars"></i> Menu
+        </button>
+        
+        <!-- Contenu existant... -->
+        <router-outlet></router-outlet>
+
+        
+        <!-- Autres sections... -->
+    </main>
+  }
+ 
   
   
 
 <!-- Overlay pour fermer le sidebar en cliquant à côté -->
 <div class="sidebar-overlay" id="sidebarOverlay" (click)="closeSidebar()"></div>
+}
 }

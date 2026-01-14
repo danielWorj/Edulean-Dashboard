@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, EventEmitter, Output, signal } from '@angular/core';
 import { Form, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { upload } from '../../../Composants/Comp/upload/upload';
 import { UtilisateurService } from '../../../Core/Service/Utlisateur/utilisateur-service';
@@ -19,6 +19,11 @@ import { Router } from '@angular/router';
 export class Acceuil {
   enseignantForm !: FormGroup;
   parentForm !: FormGroup;
+
+  @Output() statutAccount = new EventEmitter<boolean>(); 
+
+
+
   constructor(private fb : FormBuilder ,private router: Router,  private utilisateur: UtilisateurService , private generalService : GeneralService){
       this.enseignantForm = this.fb.group({
         id: new FormControl(),
@@ -62,6 +67,9 @@ export class Acceuil {
      this.getAllDiplomes();
      this.getAllProfilEnseignant(); 
   } 
+
+
+  
 
   listSections = signal<Section[]>([]);
   getAllSections(){
@@ -241,103 +249,109 @@ export class Acceuil {
     }
   }
   createEnseignantAccount(){
+    sessionStorage.clear()
 
-    // this.correspondancePassword(this.password(), this.confirmpassword());
 
-    // if (this.password()!=this.confirmpassword()) {
-    //   this.showErrormessage.set(true); 
-    //   this.messageErrorPassword.set("Les mots de passes ne correspondent pas.")
-    // }else{
-    //     let formData : FormData = new FormData();
+    this.correspondancePassword(this.password(), this.confirmpassword());
 
-    //     this.enseignantForm.controls['password'].setValue(this.passwordToStore()); 
+    if (this.password()!=this.confirmpassword()) {
+      this.showErrormessage.set(true); 
+      this.messageErrorPassword.set("Les mots de passes ne correspondent pas.")
+    }else{
+        let formData : FormData = new FormData();
 
-    //     formData.append('enseignant', JSON.stringify(this.enseignantForm.value));
-    //     formData.append('photo', this.photoProfilFile);
-    //     formData.append('cv', this.cvFile);
-    //     formData.append('diplome', this.diplomeFile);
+        this.enseignantForm.controls['password'].setValue(this.passwordToStore()); 
 
-    //     console.log('Form Data:', this.enseignantForm.value);
+        formData.append('enseignant', JSON.stringify(this.enseignantForm.value));
+        formData.append('photo', this.photoProfilFile);
+        formData.append('cv', this.cvFile);
+        formData.append('diplome', this.diplomeFile);
 
-    //     //Appel au service pour créer l'enseignant
-    //     this.utilisateur.createEnseignant(formData).subscribe({
-    //       next: (response:number) => {
-    //         // response c'est l'id de l'enseignant créé
-    //         if (response > 0) {
-    //           alert('Enseignant created successfully');
-    //           sessionStorage.setItem('role','2'); 
-    //           this.enseignantForm.reset();
-    //           let dashboardRoute= '/guide';
-                
-    //           this.router.navigate([dashboardRoute]);
-    //         }
-    //       },
-    //       error: (error) => {
-    //         console.error('Error creating enseignant', error);
-    //       }
-    //     });
-    // }
+        console.log('Form Data:', this.enseignantForm.value);
 
-    sessionStorage.setItem('role','2');
+        //Appel au service pour créer l'enseignant
+        this.utilisateur.createEnseignant(formData).subscribe({
+          next: (response:number) => {
+            // response c'est l'id de l'enseignant créé
+            if (response > 0) {
+              alert('Enseignant created successfully');
+              //sessionStorage.setItem('role','2'); 
+              this.enseignantForm.reset();
 
-    let dashboardRoute = 'guide'; 
+              sessionStorage.setItem('role','2');
 
-    this.router.navigate([dashboardRoute]);
+              //Apres la creation on signal a app.ts que le compte a ete creee et on va diriger vers le
+              this.statutAccount.emit(true); 
+            }
+          },
+          error: (error) => {
+            console.error('Error creating enseignant', error);
+          }
+        });
+    }
 
+    // sessionStorage.setItem('role','2');
+
+    // let dashboardRoute = 'guide'; 
+
+    // this.router.navigate([dashboardRoute]);
+
+    
   
   }
 
   createParentAccount(){
-
+    sessionStorage.clear()
     //Construction du FormData pour l'envoi des données du parent
 
-    // this.correspondancePassword(this.password(), this.confirmpassword());
+    this.correspondancePassword(this.password(), this.confirmpassword());
 
-    // if (this.password()!=this.confirmpassword()) {
-    //   this.showErrormessage.set(true); 
-    //   this.messageErrorPassword.set("Les mots de passes ne correspondent pas.")
-    // }else{
+    if (this.password()!=this.confirmpassword()) {
+      this.showErrormessage.set(true); 
+      this.messageErrorPassword.set("Les mots de passes ne correspondent pas.")
+    }else{
 
-    //      let formData : FormData = new FormData();
+         let formData : FormData = new FormData();
 
-    //       this.parentForm.controls['password'].setValue(this.passwordToStore()); 
+          this.parentForm.controls['password'].setValue(this.passwordToStore()); 
 
 
-    //       formData.append('parent', JSON.stringify(this.parentForm.value));
-    //       formData.append('photo', this.photoProfilFile);
-    //       formData.append('cni', this.cniFile);
+          formData.append('parent', JSON.stringify(this.parentForm.value));
+          formData.append('photo', this.photoProfilFile);
+          formData.append('cni', this.cniFile);
        
 
-    //       console.log('Form Data:', this.parentForm.value);
+          console.log('Form Data:', this.parentForm.value);
 
-    //       // Appel au service pour créer le parent
-    //       this.utilisateur.createParent(formData).subscribe({
-    //         next: (response:number) => {
-    //           // response c'est l'id du parent créé
-    //           if (response > 0) {
+          // Appel au service pour créer le parent
+          this.utilisateur.createParent(formData).subscribe({
+            next: (response:number) => {
+              // response c'est l'id du parent créé
+              if (response > 0) {
 
-    //             alert('Parent created successfully');
+                alert('Parent created successfully');
               
-    //             sessionStorage.setItem('role','3'); 
+                //sessionStorage.setItem('role','3'); 
 
-    //             this.parentForm.reset();
+                this.parentForm.reset();
                 
-    //             let dashboardRoute= '/auth';
-                
-    //             this.router.navigate([dashboardRoute]);
+                sessionStorage.setItem('role','3');
 
-    //           } 
-    //         },
-    //         error: (error) => {
-    //           console.error('Error creating parent', error);
-    //         }
-    //       });
-    // }
-    sessionStorage.setItem('role','3');
+                // let dashboardRoute = 'guide'; 
 
-    let dashboardRoute = 'guide'; 
+                // this.router.navigate([dashboardRoute]);
 
-    this.router.navigate([dashboardRoute]);
+                //Apres la creation on signal a app.ts que le compte a ete creee et on va diriger vers le
+                this.statutAccount.emit(true); 
+
+              } 
+            },
+            error: (error) => {
+              console.error('Error creating parent', error);
+            }
+          });
+    }
+    
   }
 
   

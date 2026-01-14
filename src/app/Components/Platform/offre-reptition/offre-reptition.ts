@@ -7,7 +7,7 @@ import { Enseignant } from '../../../Core/Model/Utilisateur/Enseignant/Enseignan
 import { OffreRepetitionM } from '../../../Core/Model/Repetition/OffreRepetition';
 
 @Component({
-  selector: 'app-offre-reptition',
+  selector: 'app-offre-reptition-platform',
   imports: [],
   templateUrl: './offre-reptition.html',
   styleUrl: './offre-reptition.css',

@@ -1,22 +1,42 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet , RouterLink } from '@angular/router';
+import { RouterOutlet , RouterLink, Router } from '@angular/router';
 import { Auth } from "./Components/auth/auth";
 import { Sidebar } from "./Layout/sidebar/sidebar";
+import { EnseignantsPlatform } from "./Components/Platform/enseignants/enseignants";
+import { MarketPlace } from "./Components/Enseignant/market-place/market-place";
+import { MarketPlacePlatform } from './Components/Platform/market-place/market-place';
+import { Acceuil } from './Components/Platform/acceuil/acceuil';
+import { OffreReptitionPlatform } from './Components/Platform/offre-reptition/offre-reptition';
+import { Guide } from "./Components/Platform/guide/guide";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Auth, Sidebar],
+  imports: [RouterOutlet, Auth, Sidebar, EnseignantsPlatform, MarketPlacePlatform, Acceuil, OffreReptitionPlatform, Guide],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
   protected readonly title = signal('dashboard');
+  constructor(private router : Router){
 
-  isConnected:boolean = true; //En test
+  }
+  
+  isPlatform = signal<boolean>(true); 
+  isConnected:boolean = false; //En test
   //isConnected:boolean = false; //En Prod
   
   
-  role : number = 0; 
+  role : number = 0;
+  page=signal<string>('acceuil'); 
+  routing(pageA:string){
+    if (pageA=='auth') {
+      this.isPlatform.set(false); 
+      this.isConnected = false; 
+      
+    }else{
+      this.page.set(pageA); 
+    }
+  }
 
   changeIsConnected(e:any){
     this.isConnected=(e); 
@@ -28,6 +48,31 @@ export class App {
     
   }
 
+
+  statutAccount : boolean = false;
+  isGuide = signal<boolean>(false);  
+  changeStatusAccount(s:any){
+    this.statutAccount = s; 
+    if (s) {
+      this.isPlatform.set(false); 
+      this.isGuide.set(true); 
+      
+      sessionStorage.setItem('role','2');
+
+      let dashboardRoute = 'guide'; 
+
+      this.router.navigate([dashboardRoute]);
+    }
+    
+  }
+
+  toggleToLogin(e:any){
+    if (e) {
+      //Si guide renvoie true pour continuer
+      this.isGuide.set(false); 
+      this.isConnected=false; 
+    }
+  }
   
   showSection(sectionId: string, event?: Event): void {
     // Cache toutes les sections

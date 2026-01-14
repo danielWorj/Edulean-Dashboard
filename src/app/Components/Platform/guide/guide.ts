@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, EventEmitter, Output, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
@@ -10,6 +10,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 export class Guide {
 
   role = signal<number>(0); 
+  @Output() continueToLogin = new EventEmitter<boolean>(); 
 
   constructor(private router: Router){
     this.role.set(parseInt(sessionStorage.getItem('role')!)); 
@@ -25,8 +26,9 @@ export class Guide {
   }
 
   boutonContinuer(){
-    let dashboardRoute = 'auth'; 
-    this.router.navigate([dashboardRoute]);
+    // let dashboardRoute = 'auth'; 
+    // this.router.navigate([dashboardRoute]);
+    this.continueToLogin.emit(true); 
 
   }
 

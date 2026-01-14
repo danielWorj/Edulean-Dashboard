@@ -4,7 +4,7 @@ import { Ressource } from '../../../Core/Model/MarketPlace/Ressource';
 import { TypeRessource } from '../../../Core/Model/MarketPlace/TypeRessource';
 
 @Component({
-  selector: 'app-market-place',
+  selector: 'app-market-place-platform',
   imports: [],
   templateUrl: './market-place.html',
   styleUrl: './market-place.css',
