@@ -21,12 +21,12 @@ export class App {
 
   }
   
-  isPlatform = signal<boolean>(true); 
+  isPlatform = signal<boolean>(false); 
   isConnected:boolean = false; //En test
   //isConnected:boolean = false; //En Prod
   
   
-  role : number = 0;
+  role : number = 3;
   page=signal<string>('acceuil'); 
   routing(pageA:string){
     if (pageA=='auth') {

@@ -9,6 +9,7 @@ import { MatiereRepetition } from '../../Model/Repetition/MatiereRepetition';
 import { HoraireRepetition } from '../../Model/Repetition/HoraireRepetition';
 import { Matiere } from '../../Model/Academie/Matiere';
 import { Enseignant } from '../../Model/Utilisateur/Enseignant/Enseignant';
+import { MatiereOffre } from '../../Model/Repetition/MatiereOffre';
 
 @Injectable({
   providedIn: 'root',
@@ -25,8 +26,8 @@ export class RepetitionService {
   findOffreByCode(code :string):Observable<OffreRepetitionM>{
     return this.http.get<OffreRepetitionM>(edulearnDashboard.OffreRepetition.findByCode+code);
   }
-  createOffreRepetition(request: any): Observable<Enseignant[]> {
-    return this.http.post<Enseignant[]>(edulearnDashboard.OffreRepetition.create, request);
+  createOffreRepetition(request: any): Observable<number> {
+    return this.http.post<number>(edulearnDashboard.OffreRepetition.create, request);
   }
   updateOffreRepetition(request: any): Observable<ResponseServer> {
     return this.http.put<ResponseServer>(edulearnDashboard.OffreRepetition.update, request);
@@ -84,5 +85,17 @@ export class RepetitionService {
 
   createHoraireRepetition(request: any): Observable<ResponseServer> {
     return this.http.post<ResponseServer>(edulearnDashboard.SessionRepetition.HoraireRepetition.create, request);
+  }
+
+
+
+  //Matiere - Offer de repetition review 16/01/2025
+
+  findAllMatiereOffre(id:number):Observable<MatiereOffre[]> {
+    return this.http.get<MatiereOffre[]>(edulearnDashboard.OffreRepetition.MatiereOffre.allByOffre+id);
+  }
+
+  createMatiereOffre(request: any): Observable<ResponseServer> {
+    return this.http.post<ResponseServer>(edulearnDashboard.OffreRepetition.MatiereOffre.create, request);
   }
 }

@@ -5,6 +5,8 @@ import { OffreRepetition } from '../../Parents/offre-repetition/offre-repetition
 import { RepetitionService } from '../../../Core/Service/Repetition/repetition-service';
 import { Enseignant } from '../../../Core/Model/Utilisateur/Enseignant/Enseignant';
 import { OffreRepetitionM } from '../../../Core/Model/Repetition/OffreRepetition';
+import { AssistantService } from '../../../Core/Service/IA/Assistant-Service/assistant-service';
+import { ScoreMatch } from '../../../Core/Model/IA/ScoreMatch';
 
 @Component({
   selector: 'app-offre-reptition-platform',
@@ -58,9 +60,9 @@ export class OffreReptitionPlatform implements OnInit {
     formData.append('offrerepetition', JSON.stringify(this.offreRepetitionForm.value));
 
     this.repetitionService.createOffreRepetition(formData).subscribe({
-      next: (response: Enseignant[]) => {
+      next: (response: number) => {
         
-        if (response.length!=0) {
+        if (response!=0) {
           console.log("Offre Repetition created successfully");
           console.log('list des enseignants d un profil', response); 
         }
@@ -145,6 +147,8 @@ export class OffreReptitionPlatform implements OnInit {
     }
     return name.trim().charAt(0).toUpperCase();
   }
+
+ 
 
   
 }

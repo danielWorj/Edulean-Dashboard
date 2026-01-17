@@ -11,6 +11,7 @@ const aiapi = `${api}/ia`
 
 
 
+
 export const edulearnDashboard = {
     Auth :{
         login : `${userapi}/login`, 
@@ -42,6 +43,16 @@ export const edulearnDashboard = {
         update : `${repetitionapi}/offre/update`,
         delete : `${repetitionapi}/offre/delete/`,
         findByParent : `${repetitionapi}/offre/all/byparent/`,
+        
+        
+        
+        //Matiere offre
+
+
+        MatiereOffre : {
+            allByOffre : `${repetitionapi}/offre/matiere-offre/allbyoffre/`,
+            create : `${repetitionapi}/offre/matiere-offre/create`,
+        }
     }, 
     SessionRepetition :{
         all : `${repetitionapi}/all`,
@@ -174,7 +185,9 @@ export const edulearnDashboard = {
     }, 
 
     IA :{
-        assistant : `${aiapi}/assistant`
+        assistant : `${aiapi}/assistant`, 
+        matchingForOffre : `${aiapi}/matching/offre-multienseignant/`
+
     }
 
 }
