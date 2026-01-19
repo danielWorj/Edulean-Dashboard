@@ -13,10 +13,14 @@ import { Enseignant } from '../../../Core/Model/Utilisateur/Enseignant/Enseignan
   styleUrl: './enseignants.css',
 })
 export class EnseignantsPlatform {
+  voirProfil = signal<boolean>(false); 
+
   constructor(private generalService :GeneralService , private utilisateurService : UtilisateurService){
      this.getAllSections();
      this.getAllProfilEnseignant();
      this.getAllEnseignants();
+
+     this.voirProfil.set(false); 
      
   }
 
@@ -118,14 +122,17 @@ export class EnseignantsPlatform {
     });
   }
 
-  seeDetailsEnseignant(id:number){
-    this.findEnseignantById(id); 
+  enseignantSelected = signal<Enseignant | undefined>(undefined); 
+  seeDetailsEnseignant(e:Enseignant){
+    this.voirProfil.set(true); 
+    this.enseignantSelected.set(e);  
   }
 
-  enseignantSelected = signal<Enseignant | undefined>(undefined)
   findEnseignantById(id : number){
+
     this.utilisateurService.findEnseignantById(id).subscribe({
       next:(data : Enseignant)=>{
+        this.voirProfil.set(true); 
         this.enseignantSelected.set(data);
       }, 
       error:()=>{
@@ -134,4 +141,7 @@ export class EnseignantsPlatform {
     })
   }
 
+  killVoirProfil(){
+    this.voirProfil.set(false);
+  }
 }
