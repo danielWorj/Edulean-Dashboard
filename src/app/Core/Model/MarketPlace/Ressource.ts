@@ -9,4 +9,5 @@ export interface Ressource{
     prix :number ; 
     typeResource : TypeRessource; 
     enseignant : Enseignant; 
+    date : string; 
 }
