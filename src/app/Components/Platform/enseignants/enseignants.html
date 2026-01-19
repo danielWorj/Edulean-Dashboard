@@ -272,22 +272,69 @@
                             </div>
 
                             <div class="teacher-detail-card p-4">
-                                <h4 class="detail-heading">Derniers avis</h4>
-                                <div class="d-flex gap-3 mb-3">
-                                    <div style="min-width: 50px;">
-                                        <div class="rounded-circle bg-light d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; color: var(--primary); font-weight: bold;">JD</div>
-                                    </div>
-                                    <div>
-                                        <div class="d-flex justify-content-between">
-                                            <h6 class="fw-bold mb-0">Jean Dupont</h6>
-                                            <span class="small text-muted">Il y a 2 jours</span>
-                                        </div>
-                                        <div class="text-warning small mb-1">
-                                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                                        </div>
-                                        <p class="small text-muted mb-0">Excellent pédagogue ! Dr. Manga a su expliquer les intégrales à mon fils qui avait beaucoup de mal. Ses notes ont doublé en un trimestre.</p>
-                                    </div>
+                                <div class="d-flex justify-content-between">
+                                    <h4 class="detail-heading">Derniers avis</h4>
+                                    @if (!isEditComment()) {
+                                        <i class="fas fa-plus icon-primary" (click)="editComment()"></i>
+                                    }
+                                    @if (isEditComment()) {
+                                        <i class="fas fa-close icon-primary" (click)="killComment()"></i>
+                                    }
                                 </div>
+                                  @if (isEditComment()) {
+                                   <div class="comment-box">
+                                        <textarea 
+                                            class="comment-textarea p-2" 
+                                            placeholder="Ajouter ce commentaire..."
+                                            rows="4"
+                                        ></textarea>
+                                        <button class="btn-send-comment">
+                                            <i class="fas fa-paper-plane"></i>
+                                        </button>
+                                    </div>
+
+                                    <hr>
+                                }
+                               
+                                @if (listCommentaire().length!=0) {
+                                    @for (c of listCommentaire(); track $index) {
+                                         <div class="d-flex gap-3 mb-3 my-3">
+                                   
+                                            <div style="min-width: 50px;">
+                                                <div class="rounded-circle bg-light d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; color: var(--primary); font-weight: bold;">{{c.parent.nomComplet.charAt(0)}}</div>
+                                            </div>
+                                        
+                                            <div>
+                                                <div class="d-flex justify-content-between">
+                                                    <h6 class="fw-bold mb-0">{{c.parent.nomComplet}}</h6>
+                                                    <span class="small text-muted">Il y a 2 jours</span>
+                                                </div>
+                                                <div class="text-warning small mb-1">
+                                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                                </div>
+                                                <p class="small text-muted mb-0">{{c.contenu}}</p>
+                                            </div>
+                                        </div>
+                                    }
+                                }@else {
+                                    <div class="d-flex gap-3 mb-3 my-3">
+                                    
+                                        <div style="min-width: 50px;">
+                                            <div class="rounded-circle bg-light d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; color: var(--primary); font-weight: bold;">JD</div>
+                                        </div>
+                                    
+                                        <div>
+                                            <div class="d-flex justify-content-between">
+                                                <h6 class="fw-bold mb-0">Jean Dupont</h6>
+                                                <span class="small text-muted">Il y a 2 jours</span>
+                                            </div>
+                                            <div class="text-warning small mb-1">
+                                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                            </div>
+                                            <p class="small text-muted mb-0">Excellent pédagogue ! Dr. Manga a su expliquer les intégrales à mon fils qui avait beaucoup de mal. Ses notes ont doublé en un trimestre.</p>
+                                        </div>
+                                    </div>
+                                }
                             </div>
                         </div>
 

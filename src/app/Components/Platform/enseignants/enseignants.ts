@@ -5,6 +5,10 @@ import { Section } from '../../../Core/Model/Academie/Section';
 import { ProfilEnseignant } from '../../../Core/Model/Utilisateur/Enseignant/ProfilEnseignant';
 import { StatusEnseignant } from '../../../Core/Model/Utilisateur/Enseignant/StatusEnseignant';
 import { Enseignant } from '../../../Core/Model/Utilisateur/Enseignant/Enseignant';
+import { CommentaireService } from '../../../Core/Service/Commentaire/commentaire-service';
+import { Commentaire } from '../../../Core/Model/Commentaire/Commentaire';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ResponseServer } from '../../../Core/Model/Server/ResponseServer';
 
 @Component({
   selector: 'app-enseignants',
@@ -15,12 +19,25 @@ import { Enseignant } from '../../../Core/Model/Utilisateur/Enseignant/Enseignan
 export class EnseignantsPlatform {
   voirProfil = signal<boolean>(false); 
 
-  constructor(private generalService :GeneralService , private utilisateurService : UtilisateurService){
+  commentaireForm !:FormGroup;
+
+  constructor(
+    private generalService :GeneralService , 
+    private utilisateurService : UtilisateurService,
+    private commentaireService : CommentaireService, 
+    private fb : FormBuilder){
      this.getAllSections();
      this.getAllProfilEnseignant();
      this.getAllEnseignants();
 
      this.voirProfil.set(false); 
+
+     this.commentaireForm = this.fb.group({
+      id : new FormControl(), 
+      contenu : new FormControl(),
+      enseignant : new FormControl(),
+      parent : new FormControl(),
+     }); 
      
   }
 
@@ -126,6 +143,7 @@ export class EnseignantsPlatform {
   seeDetailsEnseignant(e:Enseignant){
     this.voirProfil.set(true); 
     this.enseignantSelected.set(e);  
+    this.getAllCommentaire(e.id)
   }
 
   findEnseignantById(id : number){
@@ -143,5 +161,51 @@ export class EnseignantsPlatform {
 
   killVoirProfil(){
     this.voirProfil.set(false);
+    this.isEditComment.set(false); 
+  }
+
+
+  isEditComment = signal<boolean>(false); 
+  editComment(){
+    this.isEditComment.set(true); 
+
+  }
+
+  killComment(){
+    this.isEditComment.set(false);
+  }
+  //Espace de getsion des commentaires
+
+  listCommentaire = signal<Commentaire[]>([]); 
+  getAllCommentaire(id:number){
+    this.commentaireService.getAllCommentaireByEnseignant(id).subscribe({
+      next:(data : Commentaire[])=>{
+        this.listCommentaire.set(data); 
+      }, 
+      error:()=>{
+        console.log('fecth all commentaire : failed');
+      }
+    }); 
+  }
+
+  createCommentaire(){
+    const formData : FormData = new FormData(); 
+
+    this.commentaireForm.controls['enseignant'].setValue(this.enseignantSelected()?.id); 
+    this.commentaireForm.controls['parent'].setValue('A complter'); 
+
+    formData.append("commentaire", JSON.stringify(this.commentaireForm.value));
+
+
+    this.commentaireService.createCommentaire(formData).subscribe({
+      next:(data : ResponseServer)=>{
+        if (data.status) {
+          console.log('nouveau commentaire'); 
+        } 
+      }, 
+      error:()=>{
+        console.log('fecth all commentaire : failed');
+      }
+    }); 
   }
 }

@@ -7,6 +7,7 @@ const repetitionapi = `${api}/repetition`;
 const marketplaceapi = `${api}/marketplace`; 
 const generalapi = `${api}/general`; 
 const evaluationapi = `${api}/evaluation`; 
+const commentaireapi = `${api}/commentaire`; 
 const aiapi = `${api}/ia`
 
 
@@ -188,6 +189,13 @@ export const edulearnDashboard = {
         assistant : `${aiapi}/assistant`, 
         matchingForOffre : `${aiapi}/matching/offre-multienseignant/`
 
+    }, 
+    Commentaire:{
+        allByEnseignant : `${commentaireapi}/all/byenseignant/`,
+        allByParent : `${commentaireapi}/all/byenseignant/`,
+        create : `${commentaireapi}/all/create/`,
+        update : `${commentaireapi}/all/update/`,
+        delete : `${commentaireapi}/all/delete/`,
     }
 
 }
