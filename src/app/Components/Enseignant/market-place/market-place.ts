@@ -160,4 +160,11 @@ export class MarketPlace {
         }
     }
   }
+
+  documentSelected = signal<Ressource | undefined>(undefined);
+  voirRessource = signal<boolean>(false); 
+  voirDetailRessource(r:Ressource){
+    this.voirRessource.set(true); 
+    this.documentSelected.set(r); 
+  }
 }
