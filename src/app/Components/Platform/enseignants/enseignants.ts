@@ -208,4 +208,43 @@ export class EnseignantsPlatform {
       }
     }); 
   }
+
+
+
+  honeNumber = '696649233'; // Your number
+  message = 'I have a question about your products.';
+
+  openWhatsApp() {
+    const urlMessage = encodeURIComponent(this.message);
+    const url = `https://wa.me{this.phoneNumber}`;
+    window.open(url, '_blank');
+  }
+
+  openWhatsAppWeb(): void {
+    //const cleanNumber = phoneNumber.replace(/[^0-9]/g, '');
+
+    console.log('tentative d ouvrir zap' ); 
+    let number = "696649233"; 
+    let message = "Hello world"; 
+    const cleanNumber = number.replace(/[^0-9]/g, '');
+    const encodedMessage = message ? encodeURIComponent(message) : '';
+    
+    const whatsappUrl = message 
+      ? `https://web.whatsapp.com/send?phone=${cleanNumber}&text=${encodedMessage}`
+      : `https://web.whatsapp.com/send?phone=${cleanNumber}`;
+    
+    window.open(whatsappUrl, '_blank');
+  }
+
+  openWhatsAppWebWithNumber(numero:string): void {
+ 
+
+    console.log('tentative d ouvrir zap' ); 
+  
+    const cleanNumber = numero.replace(/[^0-9]/g, '');
+    
+    const whatsappUrl =`https://web.whatsapp.com/send?phone=${cleanNumber}`; 
+    
+    window.open(whatsappUrl, '_blank');
+  }
 }

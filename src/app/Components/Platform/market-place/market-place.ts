@@ -79,4 +79,7 @@ export class MarketPlacePlatform {
     this.listDate.set(this.resultatDate); 
     this.listAllTypeDocument.set(this.resultatTypeDoc);
   }
+
+
+  
 }

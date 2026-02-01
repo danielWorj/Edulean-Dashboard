@@ -25,7 +25,7 @@ export class App {
   isConnected:boolean = false; //En test
   //isConnected:boolean = false; //En Prod
   
-  
+
   role : number = 3;
   page=signal<string>('acceuil'); 
   routing(pageA:string){
