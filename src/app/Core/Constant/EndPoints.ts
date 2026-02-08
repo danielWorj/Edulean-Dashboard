@@ -130,6 +130,13 @@ export const edulearnDashboard = {
         },
 
 
+        CategorieMatiere :{
+            all : `${generalapi}/categorie-matiere/all`,
+            allBySection : `${generalapi}/categorie-matiere/allbySection/`,
+            create : `${generalapi}/categorie-matiere/create`,
+            delete : `${generalapi}/categorie-matiere/delete/`,
+        },
+
     }, 
 
     Evaluation : {

@@ -81,7 +81,9 @@ export class Evaluation {
     });
 
     //this.idEnseignant.set(2); // Valeur par défaut
-    this.idEnseignant.set(parseInt(sessionStorage.getItem('idUser')!));
+    this.idEnseignant.set(parseInt(sessionStorage.getItem('id')!));
+
+    console.log('id de l enseignant :'+this.idEnseignant()); 
 
     this.loadPage();
 

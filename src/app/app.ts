@@ -21,7 +21,7 @@ export class App {
 
   }
   
-  isPlatform = signal<boolean>(true); 
+  isPlatform = signal<boolean>(false); 
   isConnected:boolean = false; //En test
   //isConnected:boolean = false; //En Prod
   
@@ -45,6 +45,10 @@ export class App {
     this.role = parseInt(sessionStorage.getItem("role")!); 
 
     console.log('le role est :', sessionStorage.getItem("role")!);
+
+    if (!e) {
+      alert('Déconnexion réussie !');
+    }
     
   }
 

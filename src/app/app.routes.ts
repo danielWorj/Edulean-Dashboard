@@ -104,6 +104,16 @@ export const routes: Routes = [
     {
          path: 'eleve-assistantia',
          loadComponent: () => import('./Components/Eleve/assistantia/assistantia').then(ia => ia.Assistantia)
+    },
+
+    //ADMIN
+     {
+         path: 'admin-settings',
+         loadComponent: () => import('./Components/Admin/settings/settings').then(e => e.Settings)
+    },
+    {
+         path: 'eleve-assistantia',
+         loadComponent: () => import('./Components/Eleve/assistantia/assistantia').then(ia => ia.Assistantia)
     }
 
 ];
