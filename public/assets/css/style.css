@@ -4194,11 +4194,11 @@
             color: var(--settings-text-dark);
             text-decoration: none;
             transition: all 0.2s ease;
-            border-left: 3px solid transparent;
+            border-left: 1px solid transparent;
         }
 
         .settings-nav-item i {
-            width: 20px;
+            width: 05px;
             text-align: center;
             font-size: 1.1rem;
         }
@@ -4245,7 +4245,7 @@
 
         .settings-subtitle {
             color: var(--settings-text-muted);
-            font-size: 0.95rem;
+            font-size: 0.75rem;
             margin: 0;
         }
 
@@ -4261,7 +4261,7 @@
             border-bottom: 3px solid transparent;
             color: var(--settings-text-muted);
             font-weight: 500;
-            padding: 1rem 1.5rem;
+            padding: 0.5rem 0.25rem;
             background: none;
             transition: all 0.2s ease;
         }

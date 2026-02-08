@@ -49,6 +49,10 @@ export class GeneralService {
     return this.http.post<ResponseServer>(edulearnDashboard.General.Filiere.create, request);
   }
 
+  deleteFiliere(idFiliere:any):Observable<ResponseServer>{
+    return this.http.get<ResponseServer>(edulearnDashboard.General.Filiere.delete+idFiliere);
+  }
+
 
   //Niveau
   findAllNiveau():Observable<Niveau[]> {
@@ -102,6 +106,10 @@ export class GeneralService {
 
 
   //Matiere
+  findAllMatiere():Observable<Matiere[]> {
+    return this.http.get<Matiere[]>(edulearnDashboard.General.Matiere.all); 
+  }
+
   findAllMatiereBySection(id:number):Observable<Matiere[]> {
     return this.http.get<Matiere[]>(edulearnDashboard.General.Matiere.allBySection+id); 
   }
