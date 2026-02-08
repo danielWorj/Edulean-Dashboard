@@ -315,7 +315,7 @@ export class Dashboard {
   // }
 
   testMatchingAPI() {
-// ✅ Créer un objet JSON simple (pas FormData)
+// Créer un objet JSON simple (pas FormData)
     const requestBody = {
       job_description: "J'ai besoin d'un enseignant de francais pour repeter mon enfant de Terminnale A qui a des difficultes en francais. Nous residons a Douala Makepe ",
       cv_filename:"Belinga Ngoh 2.pdf" //"Christophe MEBUNGA MBARGA.pdf"// "Justine KAMGA FOKOU.pdf"//"SAMBA VENANT  LANDRY CONTRACT.pdf" //"BIYEGUE OREL PHYSIQUE.pdf"
@@ -323,12 +323,12 @@ export class Dashboard {
     console.log('Envoi de la requête:', requestBody);
     this.iaService.testMacthingProcess(requestBody).subscribe({
       next: (data: any) => {
-        console.log('✅ Réponse API:', data);
+        console.log('Réponse API:', data);
         console.log('Score de matching:', data.match_score);
         console.log('Interprétation:', data.interpretation);
       },
     error: (error) => {
-        console.error('❌ Erreur matching:', error);
+        console.error('Erreur matching:', error);
         console.error('Status:', error.status);
         console.error('Message:', error.error);
       }

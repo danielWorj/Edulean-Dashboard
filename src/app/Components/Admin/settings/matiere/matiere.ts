@@ -25,6 +25,8 @@ export class MatiereComponent {
 
     this.getAllMatiere();
 
+  
+
   }
   //Matiere
   listMatiere = signal<Matiere[]>([]); 
@@ -32,6 +34,7 @@ export class MatiereComponent {
     this.generalService.findAllMatiere().subscribe({
       next:(data :Matiere[])=>{
         this.listMatiere.set(data); 
+        console.log('list matiere :', data);
       }, 
       error : ()=>{
         console.log('fetch list diplome : failed');
@@ -70,7 +73,7 @@ export class MatiereComponent {
     }); 
   }
 
-  //Categorie matiere
+
   listCategorieMatiere = signal<CategorieMatiere[]>([]); 
   getAllCategorieMatiere(){
     this.generalService.findAllCategorieMatiere().subscribe({
@@ -82,38 +85,6 @@ export class MatiereComponent {
       }
     }); 
   }
-
-  createCategorieMatiere(){
-    const formData = new FormData(); 
-    formData.append("categorie", JSON.stringify(this.categorieMatiereFb.value)); 
-    console.log('data diplome:', this.categorieMatiereFb.value); 
-
-    this.generalService.createCategorieMatiere(formData).subscribe({
-      next:(data : ResponseServer)=>{
-        if (data.status) {
-          alert(data.message); 
-          this.getAllCategorieMatiere();
-        }
-      }, 
-      error :()=>{
-        console.log('creation categorieMatiereFb : failed'); 
-      }
-    });
-  }
-
-  deleteCategorieMatiere(id:any){
-    this.generalService.deleteCategorieMatiere(id).subscribe({
-      next:(data :ResponseServer)=>{
-        if (data.status) {
-          alert(data.message); 
-        }
-      }, 
-      error : ()=>{
-        console.log('delete categorie matiere : failed');
-      }
-    }); 
-  }
-
   
   
 

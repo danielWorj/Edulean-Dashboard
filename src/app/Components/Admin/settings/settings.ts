@@ -12,10 +12,12 @@ import { NiveauComponent } from "./niveau/niveau";
 import { FiliereComponent } from "./filiere/filiere";
 import { DiplomeComponent } from "./diplome/diplome";
 import { MatiereComponent } from "./matiere/matiere";
+import { CategorieMatiereComponent } from "./categorie-matiere/categorie-matiere";
+import { ProfilEnseignantComponent } from "./profil-enseignant/profil-enseignant";
 
 @Component({
   selector: 'app-settings',
-  imports: [ReactiveFormsModule, SectionComponent, NiveauComponent, FiliereComponent, DiplomeComponent, MatiereComponent],
+  imports: [ReactiveFormsModule, SectionComponent, NiveauComponent, FiliereComponent, DiplomeComponent, MatiereComponent, CategorieMatiereComponent, ProfilEnseignantComponent],
   templateUrl: './settings.html',
   styleUrl: './settings.css',
 })

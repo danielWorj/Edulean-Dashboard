@@ -26,7 +26,7 @@ export class App {
   //isConnected:boolean = false; //En Prod
   
 
-  role : number = 3;
+  role : number = 0;
   page=signal<string>('acceuil'); 
   routing(pageA:string){
     if (pageA=='auth') {

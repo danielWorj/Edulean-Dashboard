@@ -24,12 +24,12 @@ export class Auth {
   }
 
   loginD(){
-   //this.statutConnection.emit(true);
+   this.statutConnection.emit(true);
    this.statutConnection.emit(true); 
    const dashboardRoute = '/dashboard-admin';
    sessionStorage.setItem('role', `1`);
    // Redirection
-    this.router.navigate([dashboardRoute]);
+   this.router.navigate([dashboardRoute]);
 
     // const formData: FormData = new FormData(); 
 
