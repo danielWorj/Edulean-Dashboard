@@ -163,9 +163,10 @@ class MatchingEnseignantService:
     
     def calculer_similarite(self, texte1, texte2):
         """
-        Calcule la similarité cosinus entre deux textes - VERSION AMÉLIORÉE
+        Calcule la similarité cosinus entre deux textes 
         Retourne un score entre 0 et 100
         """
+        # la fonction strip() permet de nettoyer la chaine de caracteres
         if not texte1.strip() or not texte2.strip():
             return 0.0
         
@@ -182,13 +183,17 @@ class MatchingEnseignantService:
         
         # Convertit en score sur 100 avec boost pour compenser
         # Le modèle donne souvent des scores entre 0.2-0.6 pour du bon matching
+
+        # Cette ligne borne le score de 0 a 100 car en multipliant la similarite * 150 
+        # ca peut depasser 100
         score = max(0, min(100, (similarite * 150)))  # Boost de 50%
         
+        # retour du score avec 2 chiffres apres la virgule. 
         return round(score, 2)
     
     def calculer_matching_enseignant(self, cv_enseignant, offre_repetition):
         """
-        Calcule le matching - VERSION AMÉLIORÉE avec bonus mots-clés
+        Calcule le matching CV enseignant et offre 
         """
         # Construction du texte de l'offre
         matiere = offre_repetition.get('matiere', '').lower()
@@ -202,21 +207,27 @@ class MatchingEnseignantService:
         """
         
         # Calcul des scores de base
+
+        # calcul de la similarite entre l'experience de l'enseignant et l'offre de repetition 
         score_experience = self.calculer_similarite(
             cv_enseignant['experience'], 
             offre_texte
         )
         
+        # calcul de la similarite entre l'experience de l'enseignant et l'offre de repetition 
         score_diplome = self.calculer_similarite(
             cv_enseignant['diplome'], 
             offre_texte
         )
         
-        # BONUS : Détection directe de mots-clés dans le CV
+        # Détection directe de mots-clés dans le CV
         cv_complet = (cv_enseignant['experience'] + ' ' + cv_enseignant['diplome']).lower()
         
         bonus = 0
-        
+        # Le systeme du bonus c'est d'ajouter un nombre de points quand on detecte les points reecherche par le parent 
+        # dans le cv de l'enseignant. 
+
+
         # Bonus si la matière exacte est mentionnée
         if matiere and matiere in cv_complet:
             bonus += 15
@@ -286,15 +297,15 @@ class MatchingEnseignantService:
     def _interpreter_score(self, score, niveau):
         """Interprète le score selon le contexte"""
         if score >= 85:
-            return f"Excellent match - Enseignant hautement qualifié pour {niveau}"
+            return f"EXCELLENT MATCH"
         elif score >= 70:
-            return f"Très bon match - Enseignant recommandé pour {niveau}"
+            return f"TRES BON MATCH"
         elif score >= 55:
-            return f"Bon match - Enseignant adapté pour {niveau}"
+            return f"BON MATCH"
         elif score >= 40:
-            return "Match moyen - Peut convenir avec accompagnement"
+            return "MATCH MOYEN"
         else:
-            return "Faible correspondance - Peu adapté à cette offre"
+            return "FAIBLE CORRESPONDANCE"
     
     def _generer_recommandation(self, score):
         """Génère une recommandation d'action"""
@@ -391,72 +402,223 @@ def matching_enseignant():
         }), 500
 
 
+# @app.route('/api/matching/batch', methods=['POST'])
+# def matching_batch():
+#     """
+#     API pour matcher une offre avec plusieurs enseignants
+    
+#     JSON Body:
+#     {
+#         "offre": {
+#             "matiere": "Mathématiques",
+#             "niveau": "Terminale S",
+#             "description": "...",
+#             "besoins": "..."
+#         },
+#         "enseignants": [
+#             {"id": 1, "experience": "...", "diplome": "..."},
+#             {"id": 2, "experience": "...", "diplome": "..."}
+#         ]
+#     }
+#     """
+#     try:
+#         data = request.get_json()
+        
+#         if not data or 'offre' not in data or 'enseignants' not in data:
+#             return jsonify({'error': 'Format JSON invalide'}), 400
+        
+#         offre = data['offre']
+#         enseignants = data['enseignants']
+        
+#         resultats = []
+        
+#         for enseignant in enseignants:
+#             cv_data = {
+#                 'experience': enseignant.get('experience', ''),
+#                 'diplome': enseignant.get('diplome', '')
+#             }
+            
+#             matching = matching_service.calculer_matching_enseignant(
+#                 cv_data, 
+#                 offre
+#             )
+            
+#             resultats.append({
+#                 'enseignant_id': enseignant.get('id'),
+#                 'nom': enseignant.get('nom', 'N/A'),
+#                 'score_final': matching['score_final'],
+#                 'scores_details': matching['scores_details'],
+#                 'interpretation': matching['interpretation'],
+#                 'recommandation': matching['recommandation']
+#             })
+        
+#         # Tri par score décroissant
+#         resultats.sort(key=lambda x: x['score_final'], reverse=True)
+        
+#         return jsonify({
+#             'success': True,
+#             'offre': offre,
+#             'resultats': resultats,
+#             'meilleur_candidat': resultats[0] if resultats else None
+#         }), 200
+        
+#     except Exception as e:
+#         return jsonify({
+#             'success': False,
+#             'error': str(e)
+#         }), 500
 @app.route('/api/matching/batch', methods=['POST'])
 def matching_batch():
     """
-    API pour matcher une offre avec plusieurs enseignants
+    API pour matcher une offre avec plusieurs enseignants via leurs CVs
     
-    JSON Body:
-    {
-        "offre": {
-            "matiere": "Mathématiques",
-            "niveau": "Terminale S",
-            "description": "...",
-            "besoins": "..."
-        },
-        "enseignants": [
-            {"id": 1, "experience": "...", "diplome": "..."},
-            {"id": 2, "experience": "...", "diplome": "..."}
-        ]
-    }
+    Form-data:
+        - matiere: Matière demandée (ex: "Mathématiques")
+        - niveau: Niveau de l'élève (ex: "Terminale")
+        - description: Description de l'offre
+        - besoins: Besoins spécifiques (optionnel)
+        - cv_files: Liste de fichiers CV (multiple files avec même clé)
+        - noms_enseignants: Liste des noms (séparés par virgule ou JSON array)
+    
+    Returns:
+        JSON avec liste des résultats triés par score
     """
     try:
-        data = request.get_json()
+        # Récupération de l'offre
+        matiere = request.form.get('matiere', '').strip()
+        niveau = request.form.get('niveau', '').strip()
+        description = request.form.get('description', '').strip()
+        besoins = request.form.get('besoins', '').strip()
         
-        if not data or 'offre' not in data or 'enseignants' not in data:
-            return jsonify({'error': 'Format JSON invalide'}), 400
+        # Validation
+        if not matiere or not niveau:
+            return jsonify({
+                'success': False,
+                'error': 'Matière et niveau sont obligatoires'
+            }), 400
         
-        offre = data['offre']
-        enseignants = data['enseignants']
+        # Récupération des fichiers CV
+        cv_files = request.files.getlist('cv_files')
+        
+        if not cv_files or len(cv_files) == 0:
+            return jsonify({
+                'success': False,
+                'error': 'Aucun CV fourni'
+            }), 400
+        
+        # Récupération des noms des enseignants
+        noms_raw = request.form.get('noms_enseignants', '')
+        
+        # Parse les noms (format: "Nom1,Nom2,Nom3" ou JSON array)
+        try:
+            if noms_raw.startswith('['):
+                import json
+                noms_enseignants = json.loads(noms_raw)
+            else:
+                noms_enseignants = [nom.strip() for nom in noms_raw.split(',')]
+        except:
+            # Si pas de noms fournis, utilise les noms de fichiers
+            noms_enseignants = [f.filename.rsplit('.', 1)[0] for f in cv_files]
+        
+        # Vérification de cohérence
+        if len(noms_enseignants) != len(cv_files):
+            # Complète avec des noms par défaut si manquants
+            while len(noms_enseignants) < len(cv_files):
+                noms_enseignants.append(f"Enseignant_{len(noms_enseignants) + 1}")
+        
+        # Construction de l'offre
+        offre = {
+            'matiere': matiere,
+            'niveau': niveau,
+            'description': description,
+            'besoins': besoins
+        }
+        
+        print(f"\n{'='*60}")
+        print(f"🎯 MATCHING BATCH: {len(cv_files)} enseignants pour {matiere} - {niveau}")
+        print(f"{'='*60}\n")
         
         resultats = []
         
-        for enseignant in enseignants:
-            cv_data = {
-                'experience': enseignant.get('experience', ''),
-                'diplome': enseignant.get('diplome', '')
-            }
+        # Traite chaque CV
+        for idx, cv_file in enumerate(cv_files):
+            nom_enseignant = noms_enseignants[idx]
             
-            matching = matching_service.calculer_matching_enseignant(
-                cv_data, 
-                offre
-            )
-            
-            resultats.append({
-                'enseignant_id': enseignant.get('id'),
-                'nom': enseignant.get('nom', 'N/A'),
-                'score_final': matching['score_final'],
-                'scores_details': matching['scores_details'],
-                'interpretation': matching['interpretation'],
-                'recommandation': matching['recommandation']
-            })
+            try:
+                print(f"📄 Traitement: {nom_enseignant} ({cv_file.filename})")
+                
+                # Extraction du texte
+                texte_cv = CVEnseignantParser.extraire_texte(cv_file)
+                
+                # Parsing des sections
+                sections_cv = CVEnseignantParser.parser_cv_enseignant(texte_cv)
+                
+                # Calcul du matching
+                matching = matching_service.calculer_matching_enseignant(
+                    sections_cv, 
+                    offre
+                )
+                
+                # Ajout au résultat
+                resultats.append({
+                    'matiere': matiere,
+                    'nom_enseignant': nom_enseignant,
+                    'score': matching['score_final'],
+                    'scores_details': {
+                        'experience': matching['scores_details']['experience'],
+                        'diplome': matching['scores_details']['diplome'],
+                        'bonus': matching['scores_details'].get('bonus', 0)
+                    },
+                    'interpretation': matching['interpretation'],
+                    'recommandation': matching['recommandation']
+                })
+                
+                print(f"   ✅ Score: {matching['score_final']}/100")
+                
+            except Exception as e:
+                print(f"   ❌ Erreur pour {nom_enseignant}: {str(e)}")
+                
+                # Ajoute quand même avec score 0
+                resultats.append({
+                    'matiere': matiere,
+                    'nom_enseignant': nom_enseignant,
+                    'score': 0,
+                    'scores_details': {
+                        'experience': 0,
+                        'diplome': 0,
+                        'bonus': 0
+                    },
+                    'interpretation': 'Erreur de traitement du CV',
+                    'recommandation': 'Vérifiez le format du CV',
+                    'error': str(e)
+                })
         
         # Tri par score décroissant
-        resultats.sort(key=lambda x: x['score_final'], reverse=True)
+        resultats.sort(key=lambda x: x['score'], reverse=True)
+        
+        print(f"\n{'='*60}")
+        print(f"✅ MATCHING TERMINÉ - Meilleur: {resultats[0]['nom_enseignant']} ({resultats[0]['score']}/100)")
+        print(f"{'='*60}\n")
         
         return jsonify({
             'success': True,
-            'offre': offre,
+            'offre': {
+                'matiere': matiere,
+                'niveau': niveau,
+                'description': description,
+                'besoins': besoins
+            },
+            'nombre_enseignants': len(resultats),
             'resultats': resultats,
             'meilleur_candidat': resultats[0] if resultats else None
         }), 200
         
     except Exception as e:
+        print(f"\n❌ ERREUR BATCH: {str(e)}\n")
         return jsonify({
             'success': False,
-            'error': str(e)
+            'error': f'Erreur lors du traitement batch: {str(e)}'
         }), 500
-
 
 @app.route('/api/health', methods=['GET'])
 def health_check():
@@ -1145,7 +1307,7 @@ if __name__ == '__main__':
     print("   - POST /api/matching/batch      : Matching multiple enseignants")
     print("   - GET  /api/health              : Health check")
     print("=" * 60)
-    print("🔧 Modèle: paraphrase-multilingual-MiniLM-L12-v2")
+    print("🔧 Modèle: OrdalieTech/Solon-embeddings-large-0.1")
     print("📊 Formule: Score = Experience(60%) + Diplome(40%)")
     print("=" * 60)
     
