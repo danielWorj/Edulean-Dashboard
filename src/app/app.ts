@@ -21,7 +21,7 @@ export class App {
 
   }
   
-  isPlatform = signal<boolean>(false); 
+  isPlatform = signal<boolean>(true); 
   isConnected:boolean = false; //En test
   //isConnected:boolean = false; //En Prod
   

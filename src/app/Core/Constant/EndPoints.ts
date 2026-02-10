@@ -1,16 +1,15 @@
 import { Type } from "@angular/core";
 import { create } from "domain";
 
-const api = "https://edulearn-backend-8coh.onrender.com/edulearn/api"            
+//const api = "http://localhost:8080/edulearn/api" ; 
+const api = "https://edulearn-backend-8coh.onrender.com/edulearn/api"  ;           
 const userapi = `${api}/user`; 
 const repetitionapi = `${api}/repetition`; 
 const marketplaceapi = `${api}/marketplace`; 
 const generalapi = `${api}/general`; 
 const evaluationapi = `${api}/evaluation`; 
 const commentaireapi = `${api}/commentaire`; 
-const aiapi = `${api}/ia`
-
-
+const aiapi = `${api}/ia`; 
 
 
 export const edulearnDashboard = {
