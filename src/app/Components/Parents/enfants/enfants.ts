@@ -45,6 +45,7 @@ export class Enfants {
   loadPageData(){
     this.getcountEleveByParent(); 
     this.getAllEleveByParent();
+    
   }
 
   listEleve = signal<Eleve[]>([]); 

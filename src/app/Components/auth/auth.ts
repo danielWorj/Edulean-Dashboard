@@ -24,57 +24,57 @@ export class Auth {
   }
 
   loginD(){
-   this.statutConnection.emit(true);
-   this.statutConnection.emit(true); 
-   const dashboardRoute = '/dashboard-admin';
-   sessionStorage.setItem('role', `1`);
-   // Redirection
-   this.router.navigate([dashboardRoute]);
+  //  this.statutConnection.emit(true);
+  //  this.statutConnection.emit(true); 
+  //  const dashboardRoute = '/dashboard-admin';
+  //  sessionStorage.setItem('role', `1`);
+  //  // Redirection
+  //  this.router.navigate([dashboardRoute]);
 
-    // const formData: FormData = new FormData(); 
+    const formData: FormData = new FormData(); 
 
-    // formData.append("auth", JSON.stringify(this.loginForm.value)); 
+    formData.append("auth", JSON.stringify(this.loginForm.value)); 
 
-    // console.log(this.loginForm.value); 
+    console.log(this.loginForm.value); 
 
-    // this.authService.login(formData).subscribe({
-    //   next: (data: AuthData) => {
-    //     if (data.id != 0) {
-    //       this.statutConnection.emit(true); 
+    this.authService.login(formData).subscribe({
+      next: (data: AuthData) => {
+        if (data.id != 0) {
+          this.statutConnection.emit(true); 
           
-    //       // Stocker l'id et le role
-    //       sessionStorage.setItem('id', `${data.id}`); 
-    //       sessionStorage.setItem('role', `${data.role}`); 
+          // Stocker l'id et le role
+          sessionStorage.setItem('id', `${data.id}`); 
+          sessionStorage.setItem('role', `${data.role}`); 
           
-    //       // Mapping rôle -> route
-    //       let dashboardRoute: string;
+          // Mapping rôle -> route
+          let dashboardRoute: string;
           
-    //       switch(data.role) {
-    //         case 1:
-    //           dashboardRoute = '/dashboard-admin';
-    //           break;
-    //         case 2:
-    //           dashboardRoute = '/dashboard-enseignant';
-    //           break;
-    //         case 3:
-    //           dashboardRoute = '/dashboard-parent';
-    //           break;
-    //         case 4:
-    //           dashboardRoute = '/dashboard-eleve';
-    //           break;
-    //         default:
-    //           dashboardRoute = '/login';
-    //       }
+          switch(data.role) {
+            case 1:
+              dashboardRoute = '/dashboard-admin';
+              break;
+            case 2:
+              dashboardRoute = '/dashboard-enseignant';
+              break;
+            case 3:
+              dashboardRoute = '/dashboard-parent';
+              break;
+            case 4:
+              dashboardRoute = '/dashboard-eleve';
+              break;
+            default:
+              dashboardRoute = '/login';
+          }
           
-    //       // Redirection
-    //       this.router.navigate([dashboardRoute]);
-    //     } else {
-    //       console.log('ID invalide');
-    //     }
-    //   }, 
-    //   error: () => {
-    //     console.log('Erreur de connexion');
-    //   }
-    // });
+          // Redirection
+          this.router.navigate([dashboardRoute]);
+        } else {
+          console.log('ID invalide');
+        }
+      }, 
+      error: () => {
+        console.log('Erreur de connexion');
+      }
+    });
   }
 }
