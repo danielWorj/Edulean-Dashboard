@@ -27,7 +27,7 @@ export const edulearnDashboard = {
         count : `${userapi}/enseignant/count/`, 
         create : `${userapi}/enseignant/create`,
         findById : `${userapi}/enseignant/findById/`,
-        changestatus : `${userapi}/status/`,
+        changestatus : `${userapi}/enseignant/status/change/`,
     }, 
 
     Eleve :{

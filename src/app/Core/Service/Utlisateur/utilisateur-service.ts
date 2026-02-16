@@ -36,6 +36,10 @@ export class UtilisateurService {
     return this.http.post<number>(edulearnDashboard.Enseignant.create, request);
   }
 
+  changeStatus(id:number):Observable<ResponseServer>{
+    return this.http.get<ResponseServer>(edulearnDashboard.Enseignant.changestatus+id);
+  }
+
   findEnseignantById(id: number): Observable<Enseignant> {
     return this.http.get<Enseignant>(`${edulearnDashboard.Enseignant.findById}${id}`);
   }

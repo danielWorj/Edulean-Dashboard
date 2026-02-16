@@ -28,7 +28,7 @@
 
         <div id="enfants-section" class="">
             <div class="header">
-                <button class="btn-primary-custom" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button class="btn-primary-custom" type="button" data-bs-toggle="modal" data-bs-target="#viewModal">
                     <i class="fas fa-plus"></i> Ajouter un Enfant
                 </button>
             </div>
@@ -51,15 +51,20 @@
                                 <tr>
                                     <td>{{e.nomComplet}}</td>
                                     <td>{{e.telephone}}</td>
-                                    <td>{{e.diplome}} : {{e.specialite}} </td>
+                                    <td>{{e.diplome.intitule}} : {{e.specialite}} </td>
                                     <td>{{e.anneeexperience}}</td>
                                     <td>{{e.localisation}}</td>
                                     <td>
-                                        <i class="fas fa-circle text-success"></i>
+                                        @if (e.status) {
+                                            <i class="badge badge-success" (click)="changeStatus(e.id)">Validé</i>
+                                        }@else {
+                                            <i class="badge badge-warning" (click)="changeStatus(e.id)">Non Validé</i>
+                                        }
                                     </td>
                                     <td>
-                                        <i class="fas fa-edit text-info me-2"></i>
-                                        <i class="fas fa-trash text-danger me-2"></i>
+                                        
+                                        <i (click)="selectEnseignant(e)" class="fas fa-edit text-info me-2" type="button" data-bs-toggle="modal" data-bs-target="#viewModal"></i>
+                                        <i (click)="enseignantForm.patchValue({id: e.id})" class="fas fa-trash text-danger me-2" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal"></i>
                                     </td>
                                     
                                 </tr>
@@ -75,3 +80,189 @@
 
 <!-- Modal -->
 <!--  -->
+<div class="modal fade" id="viewModal" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content settings-modal">
+            <div class="modal-header settings-modal-header">
+                <h5 class="modal-title">Voir un enseignant </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                   
+                        <div class="card mb-3">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                <img src="path/to/user-photo.jpg" class="img-fluid rounded-start" alt="Photo de profil" style="height: 100%; object-fit: cover;">
+                                </div>
+                                <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Informations de l'utilisateur</h5>
+                                    
+                                    <div class="row mb-2">
+                                    <div class="col-6">
+                                        <strong>Nom: </strong> <span>{{enseignantSelected()?.nomComplet}}</span>
+                                    </div>
+                                    
+                                    </div>
+
+                                    <div class="row mb-2">
+                                    <div class="col-6">
+                                        <strong>Email: </strong> <span>{{enseignantSelected()?.email}}</span>
+                                    </div>
+                                    <div class="col-6">
+                                        <strong>Téléphone: </strong> <span>{{enseignantSelected()?.telephone}}</span>
+                                    </div>
+                                    </div>
+
+                                    <div class="row mb-2">
+                                    <div class="col-6">
+                                        <strong>Date de naissance: </strong> <span>{{enseignantSelected()?.dateNaissance}}</span>
+                                    </div>
+                                    
+                                    </div>
+
+                                    <div class="row mb-2">
+                            
+                                    <div class="col-6">
+                                        <strong>Adresse: </strong> <span>{{enseignantSelected()?.localisation}}</span>
+                                    </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-6">
+                                            <strong>Diplome: </strong> <span>{{enseignantSelected()?.diplome?.intitule}}</span>
+                                        </div>
+                                        <div class="col-6">
+                                                <strong>Specialite : </strong> <span>{{enseignantSelected()?.specialite}}</span> 
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-2">
+                                    <div class="col-6">
+                                        <strong>Rôle: </strong> <span class="badge bg-primary">Enseignant</span>
+                                    </div>
+                                    <div class="col-6">
+                                        <strong>Statut: </strong> 
+                                        @if (enseignantSelected()?.status) {
+                                            <span class="badge bg-success">Actif</span>
+                                        } @else {
+                                            <span class="badge bg-danger">Inactif</span>
+                                        }
+                                    </div>
+                                    </div>
+                                    
+                                    <div class="col-12">
+                                        <label class="form-label">Fichiers </label>
+                                        <div class="component-section compact">
+
+                                            <div class="accordion my-3" id="accordionExample">
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header">
+                                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                        Identification
+                                                    </button>
+                                                    </h2>
+                                                    <div id="collapseOne" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
+                                                    <div class="accordion-body">
+                                                        <p>Carte d'identité avec une image </p>
+
+                                                       
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                        Diplome
+                                                    </button>
+                                                    </h2>
+                                                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                                    <div class="accordion-body">
+                                                        
+                                                         <div class="card mb-3">
+                                                        <div class="card-body">
+                                                            <!-- Pour les images -->
+                                                             @if (nomFile().includes('.jpg') || nomFile().includes('.jpeg') || nomFile().includes('.png') || nomFile().includes('.gif')) {
+                                                                
+                                                                <iframe 
+                                                                        [src]="safeFileUrl" 
+                                                                        width="100%" 
+                                                                        height="400px" 
+                                                                    frameborder="0">
+                                                                </iframe>
+                                                            
+                                                            }
+                                                            <!-- Pour les PDF -->
+                                                            @if (nomFile().includes('.pdf')) {
+                                                                <iframe 
+                                                                    [src]="safeFileUrl" 
+                                                                    width="100%" 
+                                                                    height="600px" 
+                                                                    frameborder="0"
+                                                                    style="border: 1px solid #ddd;">
+                                                                </iframe>
+                                                            }
+                                                            
+                                                            
+                                                        </div>
+                                                        </div>
+                                                           
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCV" aria-expanded="false" aria-controls="collapseCV">
+                                                        CV
+                                                    </button>
+                                                    </h2>
+                                                    <div id="collapseCV" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                                    <div class="accordion-body">
+                                                        <p>Info sur son cv</p>
+                                                        <app-file-viewer 
+                                                            [fileUrl]="'assets/file/BIYEGUE OREL PHYSIQUE.pdf'" 
+                                                            [fileName]="enseignantSelected()?.cv!">
+                                                        </app-file-viewer>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                                        </div>
+                                    </div>
+
+                                    
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                  
+                </div>
+            </div>
+            <div class="modal-footer settings-modal-footer">
+                <button type="button" class="settings-btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="submit" class="settings-btn-primary"   data-bs-dismiss="modal">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Delete Niveau Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content settings-modal">
+            <div class="modal-header settings-modal-header">
+                <h5 class="modal-title">Supprimer le niveau</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Êtes-vous sûr de vouloir supprimer ce niveau ? Cette action est irréversible.</p>
+            </div>
+            <div class="modal-footer settings-modal-footer">
+                <button type="button" class="settings-btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="settings-btn-danger" (click)="deleteEnseignant(enseignantForm.value.id)" data-bs-dismiss="modal">Supprimer</button>
+            </div>
+        </div>
+    </div>
+</div>

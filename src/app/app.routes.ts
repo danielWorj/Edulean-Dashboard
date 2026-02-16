@@ -111,6 +111,19 @@ export const routes: Routes = [
          path: 'admin-settings',
          loadComponent: () => import('./Components/Admin/settings/settings').then(e => e.Settings)
     },
+     {
+         path: 'admin-enseignants',
+         loadComponent: () => import('./Components/Admin/enseignants/enseignants').then(e => e.EnseignantsComponent)
+    },
+{
+         path: 'admin-parents',
+         loadComponent: () => import('./Components/Admin/parents/parents').then(e => e.Parents)
+    },
+
+
+
+
+
     {
          path: 'eleve-assistantia',
          loadComponent: () => import('./Components/Eleve/assistantia/assistantia').then(ia => ia.Assistantia)

@@ -1,5 +1,5 @@
 
-    :root {
+       :root {
             --primary: #8B1538;
             --secondary: #A52A52;
             --accent: #C64568;
@@ -11,7 +11,8 @@
             --chat-sent: #e3f2fd;
             --chat-received: #f1f0f0;
             --gold: #D4AF37;
-
+            --pdf-color: #dc3545;
+            --img-color: #0d6efd;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -164,19 +165,7 @@
     }
 
 
-      :root {
-            --primary: #8B1538;
-            --secondary: #A52A52;
-            --accent: #C64568;
-            --light-bg: #f8f9fa;
-            --sidebar-bg: #ffffff;
-            --text-dark: #2C1810;
-            --text-muted: #6c757d;
-            --border-color: #e9ecef;
-            --chat-sent: #e3f2fd;
-            --chat-received: #f1f0f0;
-        }
-
+    
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
