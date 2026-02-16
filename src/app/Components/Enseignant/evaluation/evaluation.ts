@@ -273,6 +273,7 @@ export class Evaluation {
   resultatsQuestionReponse : QuestionConstruct[] = [];
 
   async findAllconstructQuestionReponsePossibleForComposition(id:number){
+    this.listQuestionReponsePossibleConstruct.set([]); 
     console.log('construct for composition id :', id);
 
     // Stocker temporairement les résultats

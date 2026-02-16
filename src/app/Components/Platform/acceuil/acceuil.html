@@ -99,10 +99,10 @@
                 <h2>Prêt à commencer ?</h2>
                 <p class="lead mb-4">Rejoignez des milliers de familles et d'enseignants qui nous font confiance</p>
                 <div class="d-flex gap-3 justify-content-center flex-wrap">
-                    <button class="btn btn-action-alt btn-lg" onclick="showPage('inscription-parent')">
+                    <button class="btn btn-action-alt btn-lg" (click)="toggleCreationAccountParent()">
                         <i class="fas fa-user-plus me-2"></i>Inscription Parent
                     </button>
-                    <button class="btn btn-action btn-lg" onclick="showPage('inscription-enseignant')">
+                    <button class="btn btn-action btn-lg" (click)="toggleCreationAccountEnseignant()">
                         <i class="fas fa-chalkboard-teacher me-2"></i>Inscription Enseignant
                     </button>
                 </div>

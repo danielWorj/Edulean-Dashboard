@@ -30,8 +30,8 @@ export class Dashboard {
     private evaluationService: EvaluationService, 
     private iaService : AssistantService
   ) {
-    this.idEleve.set(5);
-    //this.idEleve.set(parseInt(sessionStorage.getItem('id')!));
+    //this.idEleve.set(5);
+    this.idEleve.set(parseInt(sessionStorage.getItem('id')!));
     console.log('id eleve :', this.idEleve());
     this.loadPage();
   }

@@ -1,0 +1,77 @@
+
+        <div id="dashboard-section">
+            <div class="header">
+                <h1 class="page-title">Gestion des Enseignants</h1>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div><div class="stat-title">Total Enseignants</div><div class="stat-value" id="dash-total-enseignants">{{this.listEnseignants().length}}</div></div>
+                        <div class="stat-icon blue"><i class="fas fa-child"></i></div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div><div class="stat-title">Prochaine Séance</div><div class="stat-value" style="font-size:1.5rem">Demain 14h</div></div>
+                        <div class="stat-icon orange"><i class="fas fa-clock"></i></div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div><div class="stat-title">Paiements</div><div class="stat-value" id="dash-total-paiements">12</div></div>
+                        <div class="stat-icon green"><i class="fas fa-wallet"></i></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="enfants-section" class="">
+            <div class="header">
+                <button class="btn-primary-custom" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <i class="fas fa-plus"></i> Ajouter un Enfant
+                </button>
+            </div>
+            <div class="data-table">
+                <div class="table-responsive">
+                    <table class="table" id="enfantsTable">
+                        <thead>
+                            <tr>
+                                <th>Nom & Prenom</th>
+                                <th>Contact</th>
+                                <th>Diplome & Filiere</th>
+                                <th>Experience</th>
+                                <th>Localisation</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="enfantsTableBody">
+                            @for (e of listEnseignants(); track $index) {
+                                <tr>
+                                    <td>{{e.nomComplet}}</td>
+                                    <td>{{e.telephone}}</td>
+                                    <td>{{e.diplome}} : {{e.specialite}} </td>
+                                    <td>{{e.anneeexperience}}</td>
+                                    <td>{{e.localisation}}</td>
+                                    <td>
+                                        <i class="fas fa-circle text-success"></i>
+                                    </td>
+                                    <td>
+                                        <i class="fas fa-edit text-info me-2"></i>
+                                        <i class="fas fa-trash text-danger me-2"></i>
+                                    </td>
+                                    
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+      
+
+<!-- Modal -->
+<!--  -->

@@ -69,7 +69,7 @@ export class Auth {
           // Redirection
           this.router.navigate([dashboardRoute]);
         } else {
-          console.log('ID invalide');
+          alert('identifiant incorrect'); 
         }
       }, 
       error: () => {
