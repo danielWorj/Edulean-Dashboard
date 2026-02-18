@@ -85,7 +85,7 @@
                     <div class="card mb-3">
                         <div class="row g-0">
                             <div class="col-md-4">
-                                <img [src]="enseignantSelected()?.photo || lienPhoto"
+                                <img [src]="photoProfil()"
                                      class="img-fluid rounded-start"
                                      alt="Photo de profil"
                                      style="height: 100%; object-fit: cover;">
@@ -98,13 +98,16 @@
                                         <div class="col-6">
                                             <strong>Nom: </strong> <span>{{enseignantSelected()?.nomComplet}}</span>
                                         </div>
+                                         <div class="col-6">
+                                            <strong>Email: </strong> <span>{{enseignantSelected()?.email}}</span>
+                                        </div>
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-6">
-                                            <strong>Email: </strong> <span>{{enseignantSelected()?.email}}</span>
-                                        </div>
-                                        <div class="col-6">
                                             <strong>Téléphone: </strong> <span>{{enseignantSelected()?.telephone}}</span>
+                                        </div>
+                                         <div class="col-6">
+                                            <strong>Adresse: </strong> <span>{{enseignantSelected()?.localisation}}</span>
                                         </div>
                                     </div>
                                     <div class="row mb-2">
@@ -112,11 +115,7 @@
                                             <strong>Date de naissance: </strong> <span>{{enseignantSelected()?.dateNaissance}}</span>
                                         </div>
                                     </div>
-                                    <div class="row mb-2">
-                                        <div class="col-6">
-                                            <strong>Adresse: </strong> <span>{{enseignantSelected()?.localisation}}</span>
-                                        </div>
-                                    </div>
+                                    <hr class="bg bg-primary">
                                     <div class="row mb-2">
                                         <div class="col-6">
                                             <strong>Diplome: </strong> <span>{{enseignantSelected()?.diplome?.intitule}}</span>
@@ -127,14 +126,11 @@
                                     </div>
                                     <div class="row mb-2">
                                         <div class="col-6">
-                                            <strong>Rôle: </strong> <span class="badge bg-primary">Enseignant</span>
-                                        </div>
-                                        <div class="col-6">
                                             <strong>Statut: </strong>
                                             @if (enseignantSelected()?.status) {
-                                                <span class="badge bg-success">Actif</span>
+                                                <i class="badge badge-success" (click)="changeStatus(enseignantSelected()!.id)">Validé</i>
                                             } @else {
-                                                <span class="badge bg-danger">Inactif</span>
+                                                <i class="badge badge-warning" (click)="changeStatus(enseignantSelected()!.id)">Non Validé</i>
                                             }
                                         </div>
                                     </div>

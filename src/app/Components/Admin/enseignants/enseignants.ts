@@ -69,6 +69,7 @@ export class EnseignantsComponent {
   nomCNI = signal(''); 
   nomCV = signal('');
   lienFichier = signal('');
+  photoProfil = signal(''); 
 
   selectEnseignant(enseignant: Enseignant) {
     this.enseignantSelected.set(enseignant);
@@ -78,11 +79,13 @@ export class EnseignantsComponent {
     this.nomCV.set(enseignant.cv ?? '');
     this.nomCNI.set(enseignant.cni ?? ''); 
 
+    //Photo de profil 
+    this.photoProfil.set(this.cheminFile+ enseignant.photo); 
     // Diplôme
     this.loadDiplomeFile(this.cheminFile + enseignant.diplomeurl, enseignant.diplomeurl);
-    // CV  (était inversé avant : loadCvFile chargeait dans cniUrl)
+    // CV  
     this.loadCvFile(this.cheminFile + enseignant.cv, enseignant.cv);
-    // CNI  (était inversé avant : loadCniFile chargeait dans cvUrl)
+    // CNI  
     this.loadCniFile(this.cheminFile + enseignant.cni, enseignant.cni);
   }
 
