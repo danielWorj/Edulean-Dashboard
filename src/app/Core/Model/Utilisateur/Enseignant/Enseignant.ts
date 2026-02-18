@@ -10,6 +10,7 @@ export interface Enseignant extends Utilisateur {
     bio : string ; 
     tarifHoraire : number ; 
     cv : string ; 
+    cni : string ; 
     diplomeurl : string ; 
     section : Section ; 
     specialite :string;

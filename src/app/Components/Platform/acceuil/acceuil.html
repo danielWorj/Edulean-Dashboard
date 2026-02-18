@@ -338,12 +338,51 @@
                                 <textarea class="form-control" rows="5" placeholder="Definissez vous en quelques termes..." formControlName="bio"></textarea>
 
                             </div>
+                            <!-- Upload de cni -->
+                            <div class="col-12">
+                                <label class="form-label">upload de la cni  *</label>
+                                <div class="component-section compact">
+                                    
+                                    <!-- Zone d'UPLOAD -->
+                                    @if(!fecthCniState()){
+                                         <div class="upload-container" id="cniUploadArea" onclick="document.getElementById('cniInput').click()">
+                                            <div class="upload-icon">
+                                                <i class="fas fa-id-card"></i>
+                                            </div>
+                                            <div class="upload-text">Télécharger votre cni </div>
+                                            <div class="upload-subtext">Assurez-vous que les informations sont lisibles</div>
+                                            <button class="btn-upload" type="button">
+                                                <i class="fas fa-upload me-2"></i>Sélectionner votre cni 
+                                            </button>
+                                            <div class="upload-restrictions">
+                                                <i class="fas fa-shield-alt me-1"></i>
+                                                Formats: PDF, JPG, PNG • Max: 10 MB • Document sécurisé et confidentiel
+                                            </div>
+                                            <input type="file" id="cniInput" class="file-input" accept="image/*,application/pdf" (change)="onCniUploaded($event)">
+                                        </div>
+                                    }
 
+                                    @if(fecthcvState()){ 
+                                         <div class="preview-info">
+                                            <div>
+                                                <div class="file-name">{{cniFileName()}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="preview-actions">
+                                            <button class="btn-remove" >
+                                                <i class="fas fa-trash me-2"></i>Supprimer ce document
+                                            </button>
+                                        </div>
+                                    }
+
+                                   
+                                </div>
+                            </div>
                             <!-- Photo de profil -->
-                        
                             <div class="col-12">
                                 <label class="form-label">Photo de Profil  *</label>
                                 <div class="component-section compact">
+
                                     
                                     <!-- Zone d'UPLOAD -->
                                     @if(!fetchPhotoState()){
@@ -381,8 +420,7 @@
                                 </div>
                             </div>
                              <!--Upload du cv -->
-
-                             <div class="col-12">
+                            <div class="col-12">
                                 <label class="form-label">upload du CV  *</label>
                                 <div class="component-section compact">
                                     

@@ -1004,6 +1004,8 @@
         margin: 0 auto;
         }
 
+        /* upload container avec vue horizontale */
+        
         /* Upload Container */
         .upload-container {
         border: 3px dashed var(--primary);

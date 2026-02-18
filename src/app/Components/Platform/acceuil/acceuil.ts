@@ -266,6 +266,8 @@ export class Acceuil {
         formData.append('photo', this.photoProfilFile);
         formData.append('cv', this.cvFile);
         formData.append('diplome', this.diplomeFile);
+        formData.append('cni', this.cniFile);
+
 
         console.log('Form Data:', this.enseignantForm.value);
 
